@@ -8,7 +8,7 @@ const IndexPage = () => {
         return (
           <div>
             {data.post.title}
-            <img src={`${process.env.GQL_API}/${data.post.image[0].url}`} />
+            <img src={`${process.env.API_URL}/${data.post.image[0].url}`} />
           </div>
         );
       }}
