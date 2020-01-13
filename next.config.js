@@ -9,11 +9,10 @@ module.exports = withImages({
     // Note: we provide webpack above so you should not `require` it
     // Perform customizations to webpack config
     // Important: return the modified config
-    config.resolve.modules.push(path.resolve(__dirname, "client"), "node_modules")
+    config.resolve.modules.push(path.resolve(__dirname, ""), "node_modules")
     return config
   },
   env: {
-    API_URL: process.env.API_URL,
-    PORT: process.env.PORT
+    API_URL: process.env.API_URL
   }
 })
