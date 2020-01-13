@@ -1,5 +1,19 @@
+import QueryComponent from "../shared/components/query-component";
+import { FETCH_POST } from "../shared/queries/posts";
+
 const IndexPage = () => {
-  return <div>Hello</div>;
+  return (
+    <QueryComponent query={FETCH_POST}>
+      {({ data }: any) => {
+        return (
+          <div>
+            {data.post.title}
+            <img src={`${process.env.GQL_API}/${data.post.image[0].url}`} />
+          </div>
+        );
+      }}
+    </QueryComponent>
+  );
 };
 
 export default IndexPage;
