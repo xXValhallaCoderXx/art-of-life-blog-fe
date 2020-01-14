@@ -6,7 +6,7 @@ import fetch from "isomorphic-unfetch";
 
 // Update the GraphQL endpoint to any instance of GraphQL that you like
 const API_URL = process.env.API_URL;
-const GRAPHQL_URL = `${API_URL}/graphql`;
+const GRAPHQL_URL = `https://art-of-life-blog-be.herokuapp.com/graphql`;
 
 const link = createHttpLink({  
   fetch, // Switches between unfetch & node-fetch for client & server.
