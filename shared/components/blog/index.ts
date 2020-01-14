@@ -1,0 +1,1 @@
+export {default as FeaturePostHome} from "./feature-post-home";
