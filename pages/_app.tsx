@@ -1,7 +1,7 @@
 import React from "react";   
 import { ApolloProvider } from "@apollo/react-hooks";  
 import withData from "../shared/utils/apollo-setup";
-
+import "shared/styles/index.scss";
 const App: any = ({ Component, pageProps, apollo }: any) => {  
   return (
     <ApolloProvider client={apollo}>
