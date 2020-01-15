@@ -6,6 +6,17 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
+const useStyles = makeStyles(() => ({
+  card: {
+    width: 345
+  },
+  image: {
+    objectFit: "cover",
+    width: "100%",
+    height: 250
+  }
+}));
+
 interface Props {
   title: string;
   category: string;
@@ -13,11 +24,13 @@ interface Props {
 }
 
 const LatestPostCard = ({ title, category, image }: Props) => {
+  // @ts-ignore
+  const classes = useStyles();
   return (
-    <Card>
+    <Card className={classes.card}>
       <CardContent>
         <Grid container direction="column" justify="center" alignItems="center">
-          <img src={`https://art-of-life-blog-be.herokuapp.com${image}`} />
+          <img className={classes.image} src={`https://art-of-life-blog-be.herokuapp.com${image}`} />
           <Typography color="primary" variant="subtitle2">
             {category}
           </Typography>

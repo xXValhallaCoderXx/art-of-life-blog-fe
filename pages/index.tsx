@@ -64,9 +64,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                     >
                       Latest Posts
                     </Typography>
-                    <Grid container direction="row">
-                      {renderLatestPosts(data.posts)}
-                    </Grid>
+                    <Grid container direction="row">{renderLatestPosts(data.posts)}</Grid>
                   </Grid>
                 </section>
               </Grid>
@@ -109,13 +107,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
 
   function renderLatestPosts(posts: any) {
     return posts.map((post, index) => {
-      return (
-        <LatestPostCard
-          image={post.image[0].url}
-          title={post.title}
-          category={post.category.name}
-        />
-      );
+      return <LatestPostCard image={post.image[0].url} title={post.title} category={post.category.name}/>;
     });
   }
 };
