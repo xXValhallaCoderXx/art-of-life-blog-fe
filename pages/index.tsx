@@ -9,6 +9,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
+import Box from "@material-ui/core/Box";
 import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
 import Query from "shared/components/query-component";
@@ -31,7 +32,8 @@ const useStyles = makeStyles(theme => ({
     marginTop: 30
   },
   latestPostTitle: {
-    marginTop: 10,
+    marginTop: 50,
+    marginBottom: 30,
     color: colors.lightShade
   }
 }));
@@ -45,12 +47,14 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
       {({ data }: any) => {
         console.log("AT:A", data);
         const { post } = data.featurePosts[0];
+        console.log("POST: ", post);
         return (
           <HomeLayout>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={8} md={8} lg={9}>
                 <section id="feature-post">
                   <FeaturePostHome
+                    image={post.image[0].url}
                     category={post.category.name}
                     title={post.title}
                   />
@@ -64,12 +68,13 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                     >
                       Latest Posts
                     </Typography>
-                    <Grid container direction="row">{renderLatestPosts(data.posts)}</Grid>
+                    <Grid container direction="row" spacing={10}>{renderLatestPosts(data.posts)}</Grid>
                   </Grid>
                 </section>
               </Grid>
               <Grid item xs={12} sm={4} md={4} lg={3}>
-                <Card>
+             <Box boxShadow={10}>
+             <Card>
                   <CardContent>
                     <Avatar src={avatarImage} className={classes.large} />
                     <Typography
@@ -91,6 +96,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                     </Typography>
                   </CardContent>
                 </Card>
+             </Box>
               </Grid>
             </Grid>
           </HomeLayout>
@@ -107,7 +113,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
 
   function renderLatestPosts(posts: any) {
     return posts.map((post, index) => {
-      return <LatestPostCard image={post.image[0].url} title={post.title} category={post.category.name}/>;
+      return <Grid item><LatestPostCard image={post.image[0].url} title={post.title} category={post.category.name}/></Grid>;
     });
   }
 };
