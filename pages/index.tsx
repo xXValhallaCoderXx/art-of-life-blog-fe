@@ -4,6 +4,7 @@ import { FETCH_HOME_DATA } from "shared/queries/posts";
 
 import { HomeLayout } from "shared/components/layouts";
 import { FeaturePostHome, LatestPostCard } from "shared/components/blog";
+import { ErrorBoundary } from "shared/components";
 
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
@@ -44,77 +45,88 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
   const classes = useStyles();
   const avatarImage = require("shared/images/portrait-image.jpg");
   return (
-    <Query query={FETCH_HOME_DATA}>
-      {({ data }: any) => {
-        console.log("AT:A", data);
-        const { post } = data.featurePosts[0];
-        console.log("POST: ", post);
-        return (
-          <HomeLayout>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={8} md={8} lg={9}>
-                <section id="feature-post">
-                  <FeaturePostHome
-                    image={post.image[0].url}
-                    category={post.category.name}
-                    title={post.title}
-                  />
-                </section>
-                <section className={classes.blogsSection} id="blogs">
-                  <Grid container direction="column" spacing={3}>
-                    <Typography
-                      className={classes.latestPostTitle}
-                      align="left"
-                      variant="h3"
-                    >
-                      Latest Posts
-                    </Typography>
-                    <Grid container direction="row" spacing={10}>{renderLatestPosts(data.posts)}</Grid>
-                  </Grid>
-                </section>
+    <ErrorBoundary>
+      <Query query={FETCH_HOME_DATA}>
+        {({ data }: any) => {
+          console.log("AT:A", data);
+          const { post } = data.featurePosts[0];
+          return (
+            <HomeLayout>
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={8} md={8} lg={9}>
+                  <section id="feature-post">
+                    <FeaturePostHome
+                      image={post.image[0].url}
+                      category={post.category.name}
+                      title={post.title}
+                    />
+                  </section>
+                  <section className={classes.blogsSection} id="blogs">
+                    <Grid container direction="column" spacing={3}>
+                      <Typography
+                        className={classes.latestPostTitle}
+                        align="left"
+                        variant="h3"
+                      >
+                        Latest Posts
+                      </Typography>
+                      <Grid container direction="row" spacing={10}>
+                        {renderLatestPosts(data.posts)}
+                      </Grid>
+                    </Grid>
+                  </section>
+                </Grid>
+                <Grid item xs={12} sm={4} md={4} lg={3}>
+                  <Box boxShadow={10}>
+                    <Card>
+                      <CardContent>
+                        <Avatar src={avatarImage} className={classes.large} />
+                        <Typography
+                          className={classes.bioStyle}
+                          color="primary"
+                          align="center"
+                          variant="subtitle2"
+                        >
+                          33 Yr old British / Portuguese (born and raised on
+                          little Guernsey), with a huge love for friends,
+                          family, travel, fitness and just life in general.
+                        </Typography>
+                        <Typography
+                          className={classes.stickyPostTitle}
+                          color="primary"
+                          variant="subtitle1"
+                        >
+                          {renderStarPosts(data.starPosts)}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Box>
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={4} md={4} lg={3}>
-             <Box boxShadow={10}>
-             <Card>
-                  <CardContent>
-                    <Avatar src={avatarImage} className={classes.large} />
-                    <Typography
-                      className={classes.bioStyle}
-                      color="primary"
-                      align="center"
-                      variant="subtitle2"
-                    >
-                      33 Yr old British / Portuguese (born and raised on little
-                      Guernsey), with a huge love for friends, family, travel,
-                      fitness and just life in general.
-                    </Typography>
-                    <Typography
-                      className={classes.stickyPostTitle}
-                      color="primary"
-                      variant="subtitle1"
-                    >
-                      {renderStarPosts(data.starPosts)}
-                    </Typography>
-                  </CardContent>
-                </Card>
-             </Box>
-              </Grid>
-            </Grid>
-          </HomeLayout>
-        );
-      }}
-    </Query>
+            </HomeLayout>
+          );
+        }}
+      </Query>
+    </ErrorBoundary>
   );
   function renderStarPosts(posts: any) {
-    return posts.map((post: any) => {
-      const { id, title } = post.post;
-      return <div onClick={() => Router.push(`/article/${id}`)}>{title}</div>;
+    return posts[0].posts.map((post: any) => {
+      const { id, title } = post;
+      return <div onClick={() => Router.push(`/post/${id}`)}>{title}</div>;
     });
   }
 
   function renderLatestPosts(posts: any) {
     return posts.map((post, index) => {
-      return <Grid item><LatestPostCard image={post.image[0].url} title={post.title} category={post.category.name}/></Grid>;
+      return (
+        <Grid item>
+          <LatestPostCard
+            image={post.image[0].url}
+            title={post.title}
+            category={post.category.name}
+          />
+        </Grid>
+      );
     });
   }
 };

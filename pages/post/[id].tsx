@@ -15,14 +15,14 @@ const Post = () => {
         return (
           <HomeLayout>
             <Typography color="primary" align="left" variant="subtitle1">
-              <Link href={`/article/category/${data.article.category.name}`}>
-                {data.article.category.name}
+              <Link href={`/article/category/${data.post.category.name}`}>
+                {data.post.category.name}
               </Link>
             </Typography>
             <Typography color="primary" align="left" variant="h3">
-              {data.article.title}
+              {data.post.title}
             </Typography>
-            <ReactMarkdown source={data.article.content} />
+            <ReactMarkdown source={data.post.content} />
           </HomeLayout>
         );
       }}

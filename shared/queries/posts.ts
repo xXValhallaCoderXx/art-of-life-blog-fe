@@ -1,11 +1,14 @@
 import gql from "graphql-tag";
 
 export const FETCH_POST = gql`
-query {
-  post(id:1){
+query FetchPosts($id: ID!) {
+  post(id:$id){
     title
     id
     content
+    category {
+      name
+    }
     image {
       url
     }
@@ -30,11 +33,11 @@ export const FETCH_HOME_DATA = gql`
       id
       title
       published_at
-      category {
-          name
-        }
       image {
         url
+      }
+      category {
+        name
       }
     }
     featurePosts {
@@ -50,13 +53,17 @@ export const FETCH_HOME_DATA = gql`
       }
     }
     starPosts {
-      post {
+   		posts {
         id
         title
+        category {
+          name
+        }
         image {
           url
         }
       }
+      }
     }
-  }
+  
 `;
