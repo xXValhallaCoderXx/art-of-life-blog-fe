@@ -121,6 +121,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
       return (
         <Grid item>
           <LatestPostCard
+            id={post.id}
             image={post.image[0].url}
             title={post.title}
             category={post.category.name}

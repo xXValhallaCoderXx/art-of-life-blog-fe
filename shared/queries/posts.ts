@@ -29,7 +29,7 @@ query ArticleCategories($category: String!) {
 
 export const FETCH_HOME_DATA = gql`
   query homePageArticles {
-    posts(limit: 3, sort: "published_at:DESC") {
+    posts(limit: 3, sort: "created_at:DESC") {
       id
       title
       published_at

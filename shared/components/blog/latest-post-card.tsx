@@ -1,4 +1,5 @@
 import React from "react";
+import Router from "next/router";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
@@ -23,9 +24,10 @@ interface Props {
   title: string;
   category: string;
   image: string;
+  id: string;
 }
 
-const LatestPostCard = ({ title, category, image }: Props) => {
+const LatestPostCard = ({ title, category, image, id }: Props) => {
   // @ts-ignore
   const classes = useStyles();
   return (
@@ -45,7 +47,7 @@ const LatestPostCard = ({ title, category, image }: Props) => {
             <Typography color="primary" variant="h6">
               {title}
             </Typography>
-            <Button variant="contained" color="primary" disableElevation>
+            <Button variant="contained" color="primary" disableElevation  onClick={() => Router.push(`/post/${id}`)} >
               READ MORE
             </Button>
           </Grid>
