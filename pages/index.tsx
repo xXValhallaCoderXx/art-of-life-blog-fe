@@ -3,7 +3,7 @@ import Router from "next/router";
 import { FETCH_HOME_DATA } from "shared/queries/posts";
 
 import { HomeLayout } from "shared/components/layouts";
-import { FeaturePostHome } from "shared/components/blog";
+import { FeaturePostHome, LatestPostCard } from "shared/components/blog";
 
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
@@ -64,7 +64,9 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                     >
                       Latest Posts
                     </Typography>
-                    <Grid container direction="row">{renderLatestPosts(data.posts)}</Grid>
+                    <Grid container direction="row">
+                      {renderLatestPosts(data.posts)}
+                    </Grid>
                   </Grid>
                 </section>
               </Grid>
@@ -107,8 +109,13 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
 
   function renderLatestPosts(posts: any) {
     return posts.map((post, index) => {
-      console.log("POSTS: ", post);
-      return <div>Hi</div>;
+      return (
+        <LatestPostCard
+          image={post.image[0].url}
+          title={post.title}
+          category={post.category.name}
+        />
+      );
     });
   }
 };
