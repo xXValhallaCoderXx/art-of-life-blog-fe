@@ -30,6 +30,9 @@ export const FETCH_HOME_DATA = gql`
       id
       title
       published_at
+      category {
+          name
+        }
       image {
         url
       }
