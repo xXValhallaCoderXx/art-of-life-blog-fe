@@ -17,6 +17,7 @@ import { colors } from "shared/styles/_colors";
 
 const useStyles = makeStyles(theme => ({
   large: {
+    border: `5px solid ${colors.darkAccent}`,
     margin: "0 auto",
     width: theme.spacing(20),
     height: theme.spacing(20)
