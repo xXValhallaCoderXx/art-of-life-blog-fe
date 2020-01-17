@@ -49,7 +49,7 @@ export const FETCH_HOME_DATA = gql`
         name
       }
     }
-    featurePosts {
+    featurePost(id: 1) {
       post {
         id
         title

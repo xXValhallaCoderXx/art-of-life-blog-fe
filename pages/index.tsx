@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import Router from "next/router";
+import get from "lodash/get";
 import { FETCH_HOME_DATA } from "shared/queries/posts";
 
 import { HomeLayout } from "shared/components/layouts";
@@ -36,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   latestPostTitle: {
     marginTop: 50,
     marginBottom: 30,
-    color: colors.lightShade
+    marginLeft: "1vh"
   }
 }));
 
@@ -44,34 +45,36 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
   // @ts-ignore
   const classes = useStyles();
   const avatarImage = require("shared/images/portrait-image.jpg");
+  console.log("AVA:" ,avatarImage)
   return (
     <ErrorBoundary>
       <Query query={FETCH_HOME_DATA}>
         {({ data }: any) => {
           console.log("AT:A", data);
-          // const { post } = data.featurePosts[0];
+          const { featurePost } = data;
           return (
             <HomeLayout>
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={8} md={8} lg={9}>
                   <section id="feature-post">
-                    {/* <FeaturePostHome
-                      image={post.image[0].url}
-                      category={post.category.name}
-                      title={post.title}
-                    /> */}
+                    <FeaturePostHome
+                      image={featurePost.post.image[0].url}
+                      category={featurePost.post.category.name}
+                      title={featurePost.post.title}
+                    />
                   </section>
                   <section className={classes.blogsSection} id="blogs">
                     <Grid container direction="column" spacing={3}>
                       <Typography
                         className={classes.latestPostTitle}
-                        align="left"
+                 
                         variant="h3"
+                        color="textPrimary"
                       >
                         Latest Posts
                       </Typography>
                       <Grid container direction="row" spacing={10}>
-                        {/* {renderLatestPosts(data.posts)} */}
+                        {renderLatestPosts(data.posts)}
                       </Grid>
                     </Grid>
                   </section>
@@ -121,10 +124,10 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
       return (
         <Grid item>
           <LatestPostCard
-            id={post.id}
-            image={post.image[0].url}
-            title={post.title}
-            category={post.category.name}
+            id={get(post, "id")}
+            image={get(post, "image[0].url")}
+            title={get(post, "title")}
+            category={get(post, "category.name")}
           />
         </Grid>
       );
