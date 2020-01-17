@@ -1,30 +1,39 @@
 import gql from "graphql-tag";
 
 export const FETCH_POST = gql`
-query FetchPosts($id: ID!) {
-  post(id:$id){
-    title
-    id
-    content
-    category {
-      name
+  query FetchPosts($id: ID!) {
+    post(id: $id) {
+      title
+      id
+      content
+      category {
+        name
+      }
+      image {
+        url
+      }
+      sub_category {
+        title
+        posts {
+          id
+          title
+          published_at
+        }
+      }
     }
-    image {
-      url
+    travelCategories: subCategories {
+      title
     }
   }
-}
 `;
 
 export const FETCH_POSTS_BY_CATEGORY = gql`
-query ArticleCategories($category: String!) {
-  posts(where: {
-    category: {name: $category}
-  }) {
-    id
-    title
+  query ArticleCategories($category: String!) {
+    posts(where: { category: { name: $category } }) {
+      id
+      title
+    }
   }
-}
 `;
 
 export const FETCH_HOME_DATA = gql`
@@ -53,7 +62,7 @@ export const FETCH_HOME_DATA = gql`
       }
     }
     starPosts {
-   		posts {
+      posts {
         id
         title
         category {
@@ -63,7 +72,6 @@ export const FETCH_HOME_DATA = gql`
           url
         }
       }
-      }
     }
-  
+  }
 `;

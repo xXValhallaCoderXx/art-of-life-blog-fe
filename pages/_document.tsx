@@ -4,6 +4,7 @@ import { ServerStyleSheets } from "@material-ui/core/styles";
 import theme from "shared/styles/theme";
 import { colors } from "shared/styles/_colors";
 
+
 export default class MyDocument extends Document {
   render() {
     return (

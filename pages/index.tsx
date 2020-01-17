@@ -49,17 +49,17 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
       <Query query={FETCH_HOME_DATA}>
         {({ data }: any) => {
           console.log("AT:A", data);
-          const { post } = data.featurePosts[0];
+          // const { post } = data.featurePosts[0];
           return (
             <HomeLayout>
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={8} md={8} lg={9}>
                   <section id="feature-post">
-                    <FeaturePostHome
+                    {/* <FeaturePostHome
                       image={post.image[0].url}
                       category={post.category.name}
                       title={post.title}
-                    />
+                    /> */}
                   </section>
                   <section className={classes.blogsSection} id="blogs">
                     <Grid container direction="column" spacing={3}>
@@ -71,7 +71,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                         Latest Posts
                       </Typography>
                       <Grid container direction="row" spacing={10}>
-                        {renderLatestPosts(data.posts)}
+                        {/* {renderLatestPosts(data.posts)} */}
                       </Grid>
                     </Grid>
                   </section>
@@ -96,7 +96,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                           color="primary"
                           variant="subtitle1"
                         >
-                          {renderStarPosts(data.starPosts)}
+                          {/* {renderStarPosts(data.starPosts)} */}
                         </Typography>
                       </CardContent>
                     </Card>
