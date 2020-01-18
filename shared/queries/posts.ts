@@ -1,43 +1,92 @@
 import gql from "graphql-tag";
 
-export const FETCH_POST = gql`
-query {
-  post(id:1){
-    title
-    id
-    content
-    image {
-      url
+export const FETCH_CATEGORY_SUBCATEGORY = gql`
+  query {
+    categories {
+      name
+      id
+      sub_categories {
+        title
+        id
+      }
     }
   }
-}
+`;
+
+export const FETCH_SUBCATEGORY_POSTS = gql`
+  query FetchSubCategoryPosts($id: ID!) {
+    subCategory(id: $id) {
+      posts {
+        title
+        id
+      }
+    }
+  }
+`;
+
+export const FETCH_CATEGORY_POSTS = gql`
+  query FetchCategoryPosts($id: ID!) {
+    category(id: $id) {
+      id
+      name
+      posts {
+        id
+        title
+      }
+    }
+  }
+`;
+
+export const FETCH_POST = gql`
+  query FetchPosts($id: ID!) {
+    post(id: $id) {
+      title
+      id
+      content
+      category {
+        name
+      }
+      image {
+        url
+      }
+      sub_category {
+        title
+        posts {
+          id
+          title
+          published_at
+        }
+      }
+    }
+    travelCategories: subCategories {
+      title
+    }
+  }
 `;
 
 export const FETCH_POSTS_BY_CATEGORY = gql`
-query ArticleCategories($category: String!) {
-  posts(where: {
-    category: {name: $category}
-  }) {
-    id
-    title
+  query ArticleCategories($category: String!) {
+    posts(where: { category: { name: $category } }) {
+      id
+      title
+    }
   }
-}
 `;
 
 export const FETCH_HOME_DATA = gql`
   query homePageArticles {
-    posts(limit: 3, sort: "published_at:DESC") {
+    posts(limit: 3, sort: "created_at:DESC") {
       id
       title
       published_at
-      category {
-          name
-        }
       image {
         url
       }
+      category {
+        name
+      }
     }
-    featurePosts {
+    featurePost(id: 1) {
       post {
         id
         title
@@ -50,9 +99,12 @@ export const FETCH_HOME_DATA = gql`
       }
     }
     starPosts {
-      post {
+      posts {
         id
         title
+        category {
+          name
+        }
         image {
           url
         }
