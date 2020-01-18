@@ -1,6 +1,9 @@
 import React from "react";
 import Router from "next/router";
+
 import { makeStyles } from "@material-ui/core/styles";
+import startCase from "lodash/startCase";
+
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -8,15 +11,16 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 
-const useStyles = makeStyles(() => ({
-  card: {
-    width: 345
+const useStyles = makeStyles(theme => ({
+  buttonWrapper: {
+    marginTop: 10
   },
   image: {
     objectFit: "cover",
     objectPosition: "50% 0%",
     width: "100%",
-    height: 250
+    height: 250,
+    marginBottom: 20
   }
 }));
 
@@ -32,7 +36,7 @@ const LatestPostCard = ({ title, category, image, id }: Props) => {
   const classes = useStyles();
   return (
     <Box boxShadow={10}>
-      <Card className={classes.card}>
+      <Card>
         <CardContent>
           <Grid
             container
@@ -41,13 +45,19 @@ const LatestPostCard = ({ title, category, image, id }: Props) => {
             alignItems="center"
           >
             <img className={classes.image} src={image} />
-            <Typography color="primary" variant="subtitle2">
-              {category}
+            <Typography color="primary" variant="subtitle1">
+              {startCase(category)}
             </Typography>
             <Typography color="primary" variant="h6">
               {title}
             </Typography>
-            <Button variant="contained" color="primary" disableElevation  onClick={() => Router.push(`/post/${id}`)} >
+            <Button
+              className={classes.buttonWrapper}
+              variant="contained"
+              color="primary"
+              disableElevation
+              onClick={() => Router.push(`/article/${id}`)}
+            >
               READ MORE
             </Button>
           </Grid>

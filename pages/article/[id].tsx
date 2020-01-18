@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
+import get from "lodash/get";
 import { HomeLayout } from "shared/components/layouts";
 import Query from "shared/components/query-component";
 import { FETCH_POST } from "shared/queries/posts";
@@ -46,38 +47,38 @@ const Post = () => {
           <HomeLayout>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={8} md={8} lg={9}>
-                <Card>
-                  <CardContent className={classes.cardWrapper}>
-                    <Typography color="primary" align="left" variant="h5">
-                      <Link
-                        href={`/article/category/${data.post.category.name}`}
-                      >
-                        <a style={{textDecoration: "none"}}>{startCase(data.post.category.name)}</a>
-                      </Link>
-                      <span style={{ marginLeft: 5, marginRight: 5 }}>-</span>
-                      <Link
-                        href={`/article/category/${data.post.sub_category.title}`}
-                      >
-                        <a style={{textDecoration: "none"}}>{startCase(data.post.sub_category.title)}</a>
-                      </Link>
-                    </Typography>
-                    <Typography
-                      className={classes.title}
-                      color="primary"
-                      align="center"
-                      variant="h2"
+                <div className={classes.cardWrapper}>
+                  <Typography color="primary" align="left" variant="h5">
+                    <Link href={`/article/category/${data.post.category.name}`}>
+                      <a style={{ textDecoration: "none" }}>
+                        {startCase(data.post.category.name)}
+                      </a>
+                    </Link>
+                    <span style={{ marginLeft: 5, marginRight: 5 }}>-</span>
+                    <Link
+                      href={`/article/category/${data.post.sub_category.title}`}
                     >
-                      {data.post.title}
-                    </Typography>
-                    <img
-                      className={classes.imageWrapper}
-                      src={data.post.image[0].url}
-                    />
-                    <div className={"markdown-body"}>
-                      <ReactMarkdown source={data.post.content} />
-                    </div>
-                  </CardContent>
-                </Card>
+                      <a style={{ textDecoration: "none" }}>
+                        {startCase(data.post.sub_category.title)}
+                      </a>
+                    </Link>
+                  </Typography>
+                  <Typography
+                    className={classes.title}
+                    color="primary"
+                    align="center"
+                    variant="h2"
+                  >
+                    {data.post.title}
+                  </Typography>
+                  <img
+                    className={classes.imageWrapper}
+                    src={get(data,"post.image[0].url")}
+                  />
+                  <div className={"markdown-body"}>
+                    <ReactMarkdown source={data.post.content} />
+                  </div>
+                </div>
               </Grid>
               <Grid item xs={12} sm={4} md={4} lg={3}>
                 <Card>
@@ -124,7 +125,12 @@ const Post = () => {
     );
     return filteredCountries.map((country, index) => {
       return (
-        <Typography key={index} color="primary" align="left" variant="subtitle2">
+        <Typography
+          key={index}
+          color="primary"
+          align="left"
+          variant="subtitle2"
+        >
           {startCase(country.title)}
         </Typography>
       );
@@ -139,8 +145,18 @@ const Post = () => {
       return filteredArtciles.map((article, index) => {
         const result = parseISO(article.published_at);
         return (
-          <Typography key={index} color="primary" align="left" variant="subtitle2">
-            {article.title} - {format(result, "dd/MM/yyyy")}
+          <Typography
+            key={index}
+            color="primary"
+            align="left"
+            variant="subtitle2"
+          >
+            <Link href={`/article/${article.id}`}>
+              <a>
+                {" "}
+                {article.title} - {format(result, "dd/MM/yyyy")}
+              </a>
+            </Link>
           </Typography>
         );
       });

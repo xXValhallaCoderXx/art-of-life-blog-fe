@@ -4,7 +4,11 @@ import get from "lodash/get";
 import { FETCH_HOME_DATA } from "shared/queries/posts";
 
 import { HomeLayout } from "shared/components/layouts";
-import { FeaturePostHome, LatestPostCard } from "shared/components/blog";
+import {
+  FeaturePostHome,
+  LatestPostCard,
+  StarPost
+} from "shared/components/blog";
 import { ErrorBoundary } from "shared/components";
 
 import Avatar from "@material-ui/core/Avatar";
@@ -32,12 +36,12 @@ const useStyles = makeStyles(theme => ({
     padding: 5
   },
   blogsSection: {
-    marginTop: 30
+    marginTop: 30,
+    marginLeft: "1vh"
   },
   latestPostTitle: {
     marginTop: 50,
-    marginBottom: 30,
-    marginLeft: "1vh"
+    marginBottom: 30
   }
 }));
 
@@ -45,41 +49,39 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
   // @ts-ignore
   const classes = useStyles();
   const avatarImage = require("shared/images/portrait-image.jpg");
-  console.log("AVA:" ,avatarImage)
   return (
     <ErrorBoundary>
       <Query query={FETCH_HOME_DATA}>
         {({ data }: any) => {
-          console.log("AT:A", data);
           const { featurePost } = data;
           return (
             <HomeLayout>
               <Grid container spacing={3}>
-                <Grid item xs={12} sm={8} md={8} lg={9}>
+                <Grid item xs={12} lg={9}>
                   <section id="feature-post">
                     <FeaturePostHome
                       image={featurePost.post.image[0].url}
                       category={featurePost.post.category.name}
                       title={featurePost.post.title}
+                      id={featurePost.post.id}
                     />
                   </section>
                   <section className={classes.blogsSection} id="blogs">
                     <Grid container direction="column" spacing={3}>
                       <Typography
                         className={classes.latestPostTitle}
-                 
                         variant="h3"
                         color="textPrimary"
                       >
                         Latest Posts
                       </Typography>
-                      <Grid container direction="row" spacing={10}>
+                      <Grid container alignItems="stretch" spacing={5}>
                         {renderLatestPosts(data.posts)}
                       </Grid>
                     </Grid>
                   </section>
                 </Grid>
-                <Grid item xs={12} sm={4} md={4} lg={3}>
+                <Grid item xs={12} lg={3}>
                   <Box boxShadow={10}>
                     <Card>
                       <CardContent>
@@ -97,9 +99,17 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                         <Typography
                           className={classes.stickyPostTitle}
                           color="primary"
-                          variant="subtitle1"
+                          variant="h6"
                         >
-                          {/* {renderStarPosts(data.starPosts)} */}
+                          Sticky Posts
+                        </Typography>
+                        <Grid container>{renderStarPosts(data.starPosts)}</Grid>
+                        <Typography
+                          className={classes.stickyPostTitle}
+                          color="primary"
+                          variant="h6"
+                        >
+                          Categories
                         </Typography>
                       </CardContent>
                     </Card>
@@ -114,15 +124,14 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
   );
   function renderStarPosts(posts: any) {
     return posts[0].posts.map((post: any) => {
-      const { id, title } = post;
-      return <div onClick={() => Router.push(`/post/${id}`)}>{title}</div>;
+      return <StarPost post={post} />;
     });
   }
 
   function renderLatestPosts(posts: any) {
     return posts.map((post, index) => {
       return (
-        <Grid item>
+        <Grid item xl={4} lg={6} xs={12}>
           <LatestPostCard
             id={get(post, "id")}
             image={get(post, "image[0].url")}

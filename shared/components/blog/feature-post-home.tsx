@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
@@ -24,10 +25,13 @@ interface Props {
   category: string;
   title: string;
   image: string;
+  id: string;
 }
 
 const FeaturePostHome = (props: Props) => {
+  const router = useRouter();
   const classes = useStyles(props);
+  console.log("props: ", props);
   return (
     <Box boxShadow={10}>
       <Card>
@@ -53,6 +57,7 @@ const FeaturePostHome = (props: Props) => {
               {props.title}
             </Typography>
             <Button
+              onClick={() => router.push(`/article/${props.id}`)}
               className={classes.text}
               variant="contained"
               color="primary"

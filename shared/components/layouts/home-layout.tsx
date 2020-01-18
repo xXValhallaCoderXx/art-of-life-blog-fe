@@ -4,7 +4,7 @@ import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles(theme => ({
   innerContainer: {
-    paddingTop: 100
+    paddingTop: 100,
   }
 }));
 
