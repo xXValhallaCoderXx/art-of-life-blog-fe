@@ -117,7 +117,9 @@ export const FETCH_HOME_DATA = gql`
       posts {
         id
         title
+        published_at
         category {
+          id
           title
         }
         image {

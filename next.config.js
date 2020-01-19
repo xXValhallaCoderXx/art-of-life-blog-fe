@@ -20,7 +20,7 @@ module.exports = compose([
         "node_modules"
       );
       config.module.rules.push({
-        test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
+        test: /\.(eot|woff|woff2|ttf)$/,
         use: {
             loader: 'url-loader',
             options: {

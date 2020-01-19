@@ -21,6 +21,7 @@ import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
 import Query from "shared/components/query-component";
 import { colors } from "shared/styles/_colors";
+import StarPosts from "shared/components/blog/star-post";
 
 const useStyles = makeStyles(theme => ({
   large: {
@@ -30,11 +31,13 @@ const useStyles = makeStyles(theme => ({
     height: theme.spacing(20)
   },
   stickyPostTitle: {
-    marginTop: 20
+    marginTop: 20,
+    marginBottom: 20,
+    borderBottom: `2px solid ${theme.palette.primary.light}`
   },
   bioStyle: {
-    marginTop: 20,
-    padding: 5
+    marginTop: 15,
+    padding: 10
   },
   blogsSection: {
     marginTop: 30,
@@ -43,6 +46,16 @@ const useStyles = makeStyles(theme => ({
   latestPostTitle: {
     marginTop: 50,
     marginBottom: 30
+  },
+  imageWrapper: {
+    height: 50
+  },
+  category: {
+    borderBottom: `2px solid ${theme.palette.primary.light}`,
+    padding: 10
+  },
+  postsCard: {
+    marginTop: 20
   }
 }));
 
@@ -92,28 +105,38 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                           className={classes.bioStyle}
                           color="primary"
                           align="center"
-                          variant="subtitle2"
+                          variant="body1"
                         >
                           33 Yr old British / Portuguese (born and raised on
                           little Guernsey), with a huge love for friends,
                           family, travel, fitness and just life in general.
                         </Typography>
+                      </CardContent>
+                    </Card>
+                  </Box>
+                  <Box boxShadow={10}>
+                    <Card className={classes.postsCard}>
+                      <CardContent>
                         <Typography
                           className={classes.stickyPostTitle}
                           color="primary"
                           variant="h6"
                         >
-                          Sticky Posts
+                          PINNED ARTICLES
                         </Typography>
-                        <Grid container>{renderStarPosts(data.starPosts)}</Grid>
+                        <Grid container spacing={2}>
+                          {renderStarPosts(data.starPosts)}
+                        </Grid>
                         <Typography
                           className={classes.stickyPostTitle}
                           color="primary"
                           variant="h6"
                         >
-                          Categories
+                          CATEGORIES
                         </Typography>
-                        {renderCategories(data.categories)}
+                        <Box style={{ marginTop: -20 }}>
+                          {renderCategories(data.categories)}
+                        </Box>
                       </CardContent>
                     </Card>
                   </Box>
@@ -129,10 +152,13 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
   function renderCategories(categories) {
     return categories.map((category, index) => {
       return (
-        <Typography key={index} color="primary" variant="h6">
-          <Link href={`/category/${category.id}`}>
-            <a>{startCase(category.title)}</a>
-          </Link>
+        <Typography
+          className={classes.category}
+          key={index}
+          color="textSecondary"
+          variant="h6"
+        >
+          {startCase(category.title)}
         </Typography>
       );
     });
@@ -140,7 +166,15 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
 
   function renderStarPosts(posts: any) {
     return posts[0].posts.map((post: any) => {
-      return <StarPost post={post} />;
+      return (
+        <StarPosts
+          publishedAt={post.published_at}
+          categoryID={post.category.id}
+          category={post.category.title}
+          img={post.image[0].url}
+          title={post.title}
+        />
+      );
     });
   }
 
