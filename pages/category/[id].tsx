@@ -10,7 +10,7 @@ import { FETCH_CATEGORY_SUBCATEGORY_POSTS } from "shared/queries/posts";
 import { HomeLayout } from "shared/components/layouts";
 import { LatestPostCard } from "shared/components/blog";
 
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, Card, CardContent } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   subCategoryWrapper: {
@@ -18,6 +18,16 @@ const useStyles = makeStyles(theme => ({
   },
   subCategoryTitle: {
     marginBottom: 30
+  },
+  categoryDescription: {
+    marginLeft: 20,
+    marginTop: 20
+  },
+  categoryTitle: {
+    marginBottom: 20
+  },
+  categoryLink: {
+    marginBottom: 10
   }
 }));
 
@@ -32,15 +42,51 @@ const CategoryPage = () => {
         console.log("CATEGORIES", data);
         return (
           <HomeLayout>
-            <Typography variant="h3">
-              {startCase(data.category.title)}
-            </Typography>
-            {renderSubcategories(data.category.sub_categories)}
+            <Grid container spacing={5}>
+              <Grid item lg={9}>
+                <Typography variant="h3">
+                  {startCase(data.category.title)}
+                </Typography>
+                <Typography
+                  className={classes.categoryDescription}
+                  variant="h5"
+                >
+                  {startCase(data.category.description)}
+                </Typography>
+                {renderSubcategories(data.category.sub_categories)}
+              </Grid>
+
+              <Grid item lg={3}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="h5" className={classes.categoryTitle}>
+                      Categories
+                    </Typography>
+                    {renderCategories(data.categories)}
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
           </HomeLayout>
         );
       }}
     </Query>
   );
+
+  function renderCategories(categories) {
+    return categories.map((category, index) => {
+      return (
+        <Typography
+          onClick={() => router.push(`/category/${category.id}`)}
+          variant="h6"
+          key={index}
+          className={classes.categoryTitle}
+        >
+          {startCase(category.title)}
+        </Typography>
+      );
+    });
+  }
 
   function renderSubcategories(subCategories) {
     return subCategories.map((subCategory, index) => {

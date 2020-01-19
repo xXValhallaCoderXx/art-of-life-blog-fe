@@ -61,7 +61,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                   <section id="feature-post">
                     <FeaturePostHome
                       image={featurePost.post.image[0].url}
-                      category={featurePost.post.category.name}
+                      category={featurePost.post.category.title}
                       title={featurePost.post.title}
                       id={featurePost.post.id}
                     />
@@ -136,7 +136,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
             id={get(post, "id")}
             image={get(post, "image[0].url")}
             title={get(post, "title")}
-            category={get(post, "category.name")}
+            category={get(post, "category.title")}
           />
         </Grid>
       );

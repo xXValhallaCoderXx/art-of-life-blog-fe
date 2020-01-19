@@ -35,6 +35,7 @@ export const FETCH_CATEGORY_SUBCATEGORY_POSTS = gql`
     category(id: $id) {
       id
       title
+      description
       sub_categories {
         id
         title
@@ -43,6 +44,10 @@ export const FETCH_CATEGORY_SUBCATEGORY_POSTS = gql`
           title
         }
       }
+    }
+    categories: categories(where: { id_ne: $id }) {
+      id
+      title
     }
   }
 `;
@@ -54,6 +59,7 @@ export const FETCH_POST = gql`
       title
       content
       sub_category {
+        id
         title
         posts {
           id
@@ -62,6 +68,7 @@ export const FETCH_POST = gql`
         }
       }
       category {
+        id
         title
         sub_categories {
           id
@@ -91,7 +98,7 @@ export const FETCH_HOME_DATA = gql`
         url
       }
       category {
-        name
+        title
       }
     }
     featurePost(id: 1) {
@@ -99,7 +106,7 @@ export const FETCH_HOME_DATA = gql`
         id
         title
         category {
-          name
+          title
         }
         image {
           url
@@ -111,7 +118,7 @@ export const FETCH_HOME_DATA = gql`
         id
         title
         category {
-          name
+          title
         }
         image {
           url

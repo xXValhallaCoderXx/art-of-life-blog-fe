@@ -58,14 +58,14 @@ const Post = () => {
               <Grid item xs={12} sm={8} md={8} lg={9}>
                 <div className={classes.cardWrapper}>
                   <Typography color="primary" align="left" variant="h5">
-                    <Link href={`/article/category/${data.post.category.id}`}>
+                    <Link href={`/category/${data.post.category.id}`}>
                       <a style={{ textDecoration: "none" }}>
                         {startCase(data.post.category.title)}
                       </a>
                     </Link>
                     <span style={{ marginLeft: 5, marginRight: 5 }}>-</span>
                     <Link
-                      href={`/article/category/${data.post.sub_category.title}`}
+                      href={`/category/sub-category/${data.post.sub_category.id}`}
                     >
                       <a style={{ textDecoration: "none" }}>
                         {startCase(data.post.sub_category.title)}
