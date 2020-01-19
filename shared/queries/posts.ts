@@ -125,5 +125,9 @@ export const FETCH_HOME_DATA = gql`
         }
       }
     }
+    categories {
+    id
+    title
+  }
   }
 `;

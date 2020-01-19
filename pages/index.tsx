@@ -1,5 +1,6 @@
 import { NextPage } from "next";
-import Router from "next/router";
+import Link from "next/link";
+import startCase from "lodash/startCase";
 import get from "lodash/get";
 import { FETCH_HOME_DATA } from "shared/queries/posts";
 
@@ -53,6 +54,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
     <ErrorBoundary>
       <Query query={FETCH_HOME_DATA}>
         {({ data }: any) => {
+          console.log("HOME: ", data);
           const { featurePost } = data;
           return (
             <HomeLayout>
@@ -111,6 +113,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                         >
                           Categories
                         </Typography>
+                        {renderCategories(data.categories)}
                       </CardContent>
                     </Card>
                   </Box>
@@ -122,6 +125,19 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
       </Query>
     </ErrorBoundary>
   );
+
+  function renderCategories(categories) {
+    return categories.map((category, index) => {
+      return (
+        <Typography key={index} color="primary" variant="h6">
+          <Link href={`/category/${category.id}`}>
+            <a>{startCase(category.title)}</a>
+          </Link>
+        </Typography>
+      );
+    });
+  }
+
   function renderStarPosts(posts: any) {
     return posts[0].posts.map((post: any) => {
       return <StarPost post={post} />;
