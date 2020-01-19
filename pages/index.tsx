@@ -21,7 +21,7 @@ import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
 import Query from "shared/components/query-component";
 import { colors } from "shared/styles/_colors";
-import StarPosts from "shared/components/blog/star-post";
+import theme from "shared/styles/theme";
 
 const useStyles = makeStyles(theme => ({
   large: {
@@ -32,6 +32,11 @@ const useStyles = makeStyles(theme => ({
   },
   stickyPostTitle: {
     marginTop: 20,
+    marginBottom: 20,
+    borderBottom: `2px solid ${theme.palette.primary.light}`
+  },
+  categoryTitle: {
+    marginTop: 60,
     marginBottom: 20,
     borderBottom: `2px solid ${theme.palette.primary.light}`
   },
@@ -51,11 +56,16 @@ const useStyles = makeStyles(theme => ({
     height: 50
   },
   category: {
+    color: theme.palette.primary.light,
     borderBottom: `2px solid ${theme.palette.primary.light}`,
-    padding: 10
+    padding: 10,
+    "&:hover": {
+      color: theme.palette.primary.dark,
+      cursor: "pointer"
+    }
   },
   postsCard: {
-    marginTop: 20
+    marginTop: 40
   }
 }));
 
@@ -128,7 +138,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                           {renderStarPosts(data.starPosts)}
                         </Grid>
                         <Typography
-                          className={classes.stickyPostTitle}
+                          className={classes.categoryTitle}
                           color="primary"
                           variant="h6"
                         >
@@ -167,7 +177,8 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
   function renderStarPosts(posts: any) {
     return posts[0].posts.map((post: any) => {
       return (
-        <StarPosts
+        <StarPost
+          id={post.id}
           publishedAt={post.published_at}
           categoryID={post.category.id}
           category={post.category.title}

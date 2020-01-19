@@ -12,6 +12,14 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(theme => ({
+  categoryTitle: {
+    textTransform: "uppercase",
+    color: theme.palette.primary.dark,
+    "&:hover": {
+      cursor: "pointer",
+      color: theme.palette.primary.light
+    }
+  },
   buttonWrapper: {
     marginTop: 10
   },
@@ -45,7 +53,7 @@ const LatestPostCard = ({ title, category, image, id }: Props) => {
             alignItems="center"
           >
             <img className={classes.image} src={image} />
-            <Typography color="primary" variant="subtitle1">
+            <Typography color="primary" variant="subtitle1" className={classes.categoryTitle}>
               {startCase(category)}
             </Typography>
             <Typography color="primary" variant="h6">

@@ -8,10 +8,21 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
+  categoryTitle: {
+    textTransform: "uppercase",
+    marginTop: 10,  
+    "&:hover": {
+      cursor: "pointer",
+      color: theme.palette.primary.light
+    }
+  },
   text: {
     textTransform: "uppercase",
-    marginTop: 10
+    marginTop: 10,  
+    "&:hover": {
+      cursor: "pointer"
+    }
   },
   image: {
     objectFit: "cover",
@@ -47,7 +58,7 @@ const FeaturePostHome = (props: Props) => {
             alignItems="center"
           >
             <Typography
-              className={classes.text}
+              className={classes.categoryTitle}
               color="primary"
               variant="subtitle2"
             >
