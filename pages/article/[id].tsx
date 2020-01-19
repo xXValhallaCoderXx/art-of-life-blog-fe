@@ -140,7 +140,9 @@ const Post = () => {
           align="left"
           variant="subtitle2"
         >
-          {startCase(country.title)}
+          <Link href={`/category/sub-category/${country.id}`}>
+            <a>{startCase(country.title)}</a>
+          </Link>
         </Typography>
       );
     });

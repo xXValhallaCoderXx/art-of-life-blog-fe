@@ -16,9 +16,15 @@ export const FETCH_CATEGORY_SUBCATEGORY = gql`
 export const FETCH_SUBCATEGORY_POSTS = gql`
   query FetchSubCategoryPosts($id: ID!) {
     subCategory(id: $id) {
-      posts {
-        title
+      id
+      title
+      category {
         id
+        title
+      }
+      posts {
+        id
+        title
       }
     }
   }
