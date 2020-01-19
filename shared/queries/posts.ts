@@ -16,23 +16,38 @@ export const FETCH_CATEGORY_SUBCATEGORY = gql`
 export const FETCH_SUBCATEGORY_POSTS = gql`
   query FetchSubCategoryPosts($id: ID!) {
     subCategory(id: $id) {
-      posts {
-        title
+      id
+      title
+      category {
         id
+        title
+      }
+      posts {
+        id
+        title
       }
     }
   }
 `;
 
-export const FETCH_CATEGORY_POSTS = gql`
+export const FETCH_CATEGORY_SUBCATEGORY_POSTS = gql`
   query FetchCategoryPosts($id: ID!) {
     category(id: $id) {
       id
-      name
-      posts {
+      title
+      description
+      sub_categories {
         id
         title
+        posts(limit: 3, sort: "created_at:DESC") {
+          id
+          title
+        }
       }
+    }
+    categories: categories(where: { id_ne: $id }) {
+      id
+      title
     }
   }
 `;
@@ -40,16 +55,11 @@ export const FETCH_CATEGORY_POSTS = gql`
 export const FETCH_POST = gql`
   query FetchPosts($id: ID!) {
     post(id: $id) {
-      title
       id
+      title
       content
-      category {
-        name
-      }
-      image {
-        url
-      }
       sub_category {
+        id
         title
         posts {
           id
@@ -57,9 +67,14 @@ export const FETCH_POST = gql`
           published_at
         }
       }
-    }
-    travelCategories: subCategories {
-      title
+      category {
+        id
+        title
+        sub_categories {
+          id
+          title
+        }
+      }
     }
   }
 `;
@@ -83,7 +98,7 @@ export const FETCH_HOME_DATA = gql`
         url
       }
       category {
-        name
+        title
       }
     }
     featurePost(id: 1) {
@@ -91,7 +106,7 @@ export const FETCH_HOME_DATA = gql`
         id
         title
         category {
-          name
+          title
         }
         image {
           url
@@ -103,7 +118,7 @@ export const FETCH_HOME_DATA = gql`
         id
         title
         category {
-          name
+          title
         }
         image {
           url
