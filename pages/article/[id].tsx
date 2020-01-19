@@ -19,7 +19,7 @@ import "github-markdown-css";
 
 const useStyles = makeStyles(theme => ({
   cardWrapper: {
-    padding: 30
+    padding: 20
   },
   imageWrapper: {
     marginTop: 50,
@@ -30,7 +30,16 @@ const useStyles = makeStyles(theme => ({
     height: 400
   },
   title: {
-    fontWeight: 800
+    fontWeight: 800,
+    [theme.breakpoints.down("md")]: {
+      marginTop: 30,
+      fontSize: "2rem"
+    }
+  },
+  relatedArticlesTitle: {
+    [theme.breakpoints.down("md")]: {
+      fontSize: "1.5rem"
+    }
   }
 }));
 
@@ -49,9 +58,9 @@ const Post = () => {
               <Grid item xs={12} sm={8} md={8} lg={9}>
                 <div className={classes.cardWrapper}>
                   <Typography color="primary" align="left" variant="h5">
-                    <Link href={`/article/category/${data.post.category.name}`}>
+                    <Link href={`/article/category/${data.post.category.id}`}>
                       <a style={{ textDecoration: "none" }}>
-                        {startCase(data.post.category.name)}
+                        {startCase(data.post.category.title)}
                       </a>
                     </Link>
                     <span style={{ marginLeft: 5, marginRight: 5 }}>-</span>
@@ -73,7 +82,7 @@ const Post = () => {
                   </Typography>
                   <img
                     className={classes.imageWrapper}
-                    src={get(data,"post.image[0].url")}
+                    src={get(data, "post.image[0].url")}
                   />
                   <div className={"markdown-body"}>
                     <ReactMarkdown source={data.post.content} />
@@ -84,7 +93,7 @@ const Post = () => {
                 <Card>
                   <CardContent>
                     <Typography
-                      className={classes.title}
+                      className={classes.relatedArticlesTitle}
                       color="primary"
                       align="left"
                       variant="h6"
@@ -96,16 +105,16 @@ const Post = () => {
                       {handleRelatedArticles(data.post.sub_category.posts)}
                     </div>
                     <Typography
-                      className={classes.title}
+                      className={classes.relatedArticlesTitle}
                       color="primary"
                       align="left"
                       variant="h6"
                     >
-                      Countries
+                      Related Categories
                     </Typography>
                     <div style={{ marginTop: 5 }}>
                       {handleSubCategories(
-                        data.travelCategories,
+                        data.post.category.sub_categories,
                         data.post.sub_category.title
                       )}
                     </div>

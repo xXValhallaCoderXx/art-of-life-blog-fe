@@ -40,15 +40,9 @@ export const FETCH_CATEGORY_POSTS = gql`
 export const FETCH_POST = gql`
   query FetchPosts($id: ID!) {
     post(id: $id) {
-      title
       id
+      title
       content
-      category {
-        name
-      }
-      image {
-        url
-      }
       sub_category {
         title
         posts {
@@ -57,9 +51,13 @@ export const FETCH_POST = gql`
           published_at
         }
       }
-    }
-    travelCategories: subCategories {
-      title
+      category {
+        title
+        sub_categories {
+          id
+          title
+        }
+      }
     }
   }
 `;
