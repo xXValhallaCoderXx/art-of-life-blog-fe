@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     objectFit: "cover",
     objectPosition: "50% 0%",
     width: "100%",
-    height: 400
+    height: 600
   },
   title: {
     fontWeight: 800,
@@ -40,6 +40,9 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down("md")]: {
       fontSize: "1.5rem"
     }
+  },
+  categoriesCard: {
+    marginTop: 50
   }
 }));
 
@@ -51,7 +54,7 @@ const Post = () => {
   return (
     <Query query={FETCH_POST} variables={{ id: parseInt(id) }}>
       {({ data }: any) => {
-        console.log("DATA: ", data);
+        console.log("LATEST: ", data);
         return (
           <HomeLayout>
             <Grid container spacing={3}>
@@ -96,19 +99,19 @@ const Post = () => {
                       className={classes.relatedArticlesTitle}
                       color="primary"
                       align="left"
-                      variant="h6"
+                      variant="h5"
                     >
                       Related Articles -{" "}
                       {startCase(data.post.sub_category.title)}
                     </Typography>
-                    <div style={{ marginTop: 20, marginBottom: 30 }}>
+                    <div style={{ marginTop: 10, marginBottom: 30 }}>
                       {handleRelatedArticles(data.post.sub_category.posts)}
                     </div>
                     <Typography
                       className={classes.relatedArticlesTitle}
                       color="primary"
                       align="left"
-                      variant="h6"
+                      variant="h5"
                     >
                       Related Categories
                     </Typography>
@@ -120,6 +123,19 @@ const Post = () => {
                     </div>
                   </CardContent>
                 </Card>
+                <Card className={classes.categoriesCard}>
+                  <CardContent>
+                    <Typography
+                      className={classes.relatedArticlesTitle}
+                      color="primary"
+                      align="left"
+                      variant="h5"
+                    >
+                      Categories
+                    </Typography>
+                    {categories(data.categories, data.post.category.id)}
+                  </CardContent>
+                </Card>
               </Grid>
             </Grid>
           </HomeLayout>
@@ -128,10 +144,35 @@ const Post = () => {
     </Query>
   );
 
+  function categories(categories, current) {
+    const filtered = categories.filter(category => category.id !== current);
+    return filtered.map((category, index) => {
+      return (
+        <Typography
+          key={index}
+          color="primary"
+          align="left"
+          variant="subtitle2"
+        >
+          <Link href={`/category/${category.id}`}>
+            <a>{startCase(category.title)}</a>
+          </Link>
+        </Typography>
+      );
+    });
+  }
+
   function handleSubCategories(countries, current) {
     const filteredCountries = countries.filter(
       country => country.title !== current
     );
+    if (filteredCountries.length === 0) {
+      return (
+        <Typography color="textPrimary" align="left" variant="h6">
+          No Related Categories
+        </Typography>
+      );
+    }
     return filteredCountries.map((country, index) => {
       return (
         <Typography
@@ -151,7 +192,11 @@ const Post = () => {
   function handleRelatedArticles(posts) {
     const filteredArtciles = posts.filter(post => post.id !== id);
     if (filteredArtciles.length === 0) {
-      return <div>No Adventures</div>;
+      return (
+        <Typography color="textPrimary" align="left" variant="h6">
+          No Related Articles
+        </Typography>
+      );
     } else {
       return filteredArtciles.map((article, index) => {
         const result = parseISO(article.published_at);

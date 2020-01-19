@@ -17,6 +17,10 @@ const useStyles = makeStyles(theme => ({
       color: theme.palette.primary.light
     }
   },
+  postTitle: {
+    textTransform: "uppercase",
+    marginTop: 10,  
+  },
   text: {
     textTransform: "uppercase",
     marginTop: 10,  
@@ -64,7 +68,7 @@ const FeaturePostHome = (props: Props) => {
             >
               {props.category}
             </Typography>
-            <Typography className={classes.text} color="primary" variant="h6">
+            <Typography className={classes.postTitle} color="primary" variant="h6">
               {props.title}
             </Typography>
             <Button

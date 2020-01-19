@@ -58,6 +58,9 @@ export const FETCH_POST = gql`
       id
       title
       content
+      image {
+        url
+      }
       sub_category {
         id
         title
@@ -76,6 +79,10 @@ export const FETCH_POST = gql`
         }
       }
     }
+    categories {
+        id
+        title
+      }
   }
 `;
 

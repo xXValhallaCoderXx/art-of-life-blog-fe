@@ -66,6 +66,9 @@ const useStyles = makeStyles(theme => ({
   },
   postsCard: {
     marginTop: 40
+  },
+  latestPostContainer: {
+    paddingRight: 10
   }
 }));
 
@@ -100,7 +103,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                       >
                         Latest Posts
                       </Typography>
-                      <Grid container alignItems="stretch" spacing={5}>
+                      <Grid container alignItems="stretch" spacing={5} className={classes.latestPostContainer}>
                         {renderLatestPosts(data.posts)}
                       </Grid>
                     </Grid>
