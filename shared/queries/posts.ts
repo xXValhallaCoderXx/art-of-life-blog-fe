@@ -30,14 +30,18 @@ export const FETCH_SUBCATEGORY_POSTS = gql`
   }
 `;
 
-export const FETCH_CATEGORY_POSTS = gql`
+export const FETCH_CATEGORY_SUBCATEGORY_POSTS = gql`
   query FetchCategoryPosts($id: ID!) {
     category(id: $id) {
       id
-      name
-      posts {
+      title
+      sub_categories {
         id
         title
+        posts(limit: 3, sort: "created_at:DESC") {
+          id
+          title
+        }
       }
     }
   }
