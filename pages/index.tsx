@@ -1,6 +1,6 @@
+import React from "react";
 import { NextPage } from "next";
-import Link from "next/link";
-import startCase from "lodash/startCase";
+import theme from "shared/styles/theme";
 import get from "lodash/get";
 import { FETCH_HOME_DATA } from "shared/queries/posts";
 
@@ -8,10 +8,13 @@ import { HomeLayout } from "shared/components/layouts";
 import {
   FeaturePostHome,
   LatestPostCard,
-  StarPost
+  StarPost,
+  CategoryList
 } from "shared/components/blog";
 import { ErrorBoundary } from "shared/components";
 
+import MuiAlert from '@material-ui/lab/Alert';
+import { Snackbar } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -21,11 +24,10 @@ import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
 import Query from "shared/components/query-component";
 import { colors } from "shared/styles/_colors";
-import theme from "shared/styles/theme";
 
 const useStyles = makeStyles(theme => ({
   large: {
-    border: `5px solid ${colors.darkAccent}`,
+    border: `5px solid ${theme.palette.primary.main}`,
     margin: "0 auto",
     width: theme.spacing(20),
     height: theme.spacing(20)
@@ -35,14 +37,8 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 20,
     borderBottom: `2px solid ${theme.palette.primary.light}`
   },
-  categoryTitle: {
-    marginTop: 60,
-    marginBottom: 20,
-    borderBottom: `2px solid ${theme.palette.primary.light}`
-  },
   bioStyle: {
-    marginTop: 15,
-    padding: 10
+    marginTop: 15
   },
   blogsSection: {
     marginTop: 30,
@@ -55,15 +51,6 @@ const useStyles = makeStyles(theme => ({
   imageWrapper: {
     height: 50
   },
-  category: {
-    color: theme.palette.primary.light,
-    borderBottom: `2px solid ${theme.palette.primary.light}`,
-    padding: 10,
-    "&:hover": {
-      color: theme.palette.primary.dark,
-      cursor: "pointer"
-    }
-  },
   postsCard: {
     marginTop: 40
   },
@@ -75,64 +62,86 @@ const useStyles = makeStyles(theme => ({
 const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
   // @ts-ignore
   const classes = useStyles();
+  const [snackOpen, setSnackOpen] = React.useState(true);
   const avatarImage = require("shared/images/portrait-image.jpg");
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSnackOpen(false);
+  };
   return (
     <ErrorBoundary>
       <Query query={FETCH_HOME_DATA}>
         {({ data }: any) => {
-          console.log("HOME: ", data);
-          const { featurePost } = data;
           return (
             <HomeLayout>
+              <Snackbar
+                open={snackOpen}
+                autoHideDuration={6000}
+                onClose={handleClose}
+              >
+                <Alert onClose={handleClose} severity="warning">
+                  Website UI still under construction! - Just want to start
+                  pushing content :>
+                </Alert>
+              </Snackbar>
               <Grid container spacing={3}>
                 <Grid item xs={12} lg={9}>
                   <section id="feature-post">
-                    <FeaturePostHome
-                      image={featurePost.post.image[0].url}
-                      category={featurePost.post.category.title}
-                      title={featurePost.post.title}
-                      id={featurePost.post.id}
-                    />
+                    {renderFeaturePost(data.featurePost)}
                   </section>
                   <section className={classes.blogsSection} id="blogs">
                     <Grid container direction="column" spacing={3}>
                       <Typography
                         className={classes.latestPostTitle}
                         variant="h3"
-                        color="textPrimary"
+                        color="primary"
                       >
                         Latest Posts
                       </Typography>
-                      <Grid container alignItems="stretch" spacing={5} className={classes.latestPostContainer}>
+                      <Grid
+                        container
+                        alignItems="stretch"
+                        spacing={5}
+                        className={classes.latestPostContainer}
+                      >
                         {renderLatestPosts(data.posts)}
                       </Grid>
                     </Grid>
                   </section>
                 </Grid>
                 <Grid item xs={12} lg={3}>
-                  <Box boxShadow={10}>
-                    <Card>
-                      <CardContent>
-                        <Avatar src={avatarImage} className={classes.large} />
+                  <Box boxShadow={5}>
+                    
+                      <Card>
+                        <CardContent style={{padding: 30}}>
+                        <Typography
+                          style={{marginBottom: 10}}
+                          color="textPrimary"
+                          variant="h5"
+                        >
+                          ABOUT ME
+                        </Typography>
+                          <img src={avatarImage} />
+                       
                         <Typography
                           className={classes.bioStyle}
-                          color="primary"
-                          align="center"
+                          color="textPrimary"
                           variant="body1"
                         >
-                          33 Yr old British / Portuguese (born and raised on
-                          little Guernsey), with a huge love for friends,
-                          family, travel, fitness and just life in general.
+                          Hi i'm Renate! I'm a British / Portuguese human (born
+                          and raised on little Guernsey), with a huge love for
+                          friends, family, travel, fitness and just life in
+                          general, and always have a lot to say. <br />
+                          <br />
+                          This will be my platform to share my thoughts and
+                          adventures!
                         </Typography>
-                      </CardContent>
-                    </Card>
-                  </Box>
-                  <Box boxShadow={10}>
-                    <Card className={classes.postsCard}>
-                      <CardContent>
                         <Typography
                           className={classes.stickyPostTitle}
-                          color="primary"
+                          color="textPrimary"
                           variant="h6"
                         >
                           PINNED ARTICLES
@@ -140,19 +149,14 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                         <Grid container spacing={2}>
                           {renderStarPosts(data.starPosts)}
                         </Grid>
-                        <Typography
-                          className={classes.categoryTitle}
-                          color="primary"
-                          variant="h6"
-                        >
-                          CATEGORIES
-                        </Typography>
-                        <Box style={{ marginTop: -20 }}>
-                          {renderCategories(data.categories)}
-                        </Box>
-                      </CardContent>
-                    </Card>
+                        <div style={{ marginTop: 40 }}>
+                          <CategoryList categories={data.categories} />
+                        </div>
+                   
+                        </CardContent>
+                      </Card>
                   </Box>
+             
                 </Grid>
               </Grid>
             </HomeLayout>
@@ -162,22 +166,39 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
     </ErrorBoundary>
   );
 
-  function renderCategories(categories) {
-    return categories.map((category, index) => {
+  function renderFeaturePost(post) {
+    console.log("FEATURE: ", post);
+    if (post) {
       return (
-        <Typography
-          className={classes.category}
-          key={index}
-          color="textSecondary"
-          variant="h6"
-        >
-          {startCase(category.title)}
+        <FeaturePostHome
+          image={get(post, "post.image[0].url")}
+          category={get(post, "post.category.title")}
+          title={get(post, "post.title")}
+          id={get(post, "post.id")}
+        />
+      );
+    } else {
+      return (
+        <Typography align="center" color="textSecondary" variant="h4">
+          No Featured Post
         </Typography>
       );
-    });
+    }
   }
 
   function renderStarPosts(posts: any) {
+    if (posts.length === 0) {
+      return (
+        <Typography
+          align="left"
+          color="textSecondary"
+          variant="h6"
+          style={{ marginLeft: "1vh", marginTop: -10 }}
+        >
+          No Pinned Articles
+        </Typography>
+      );
+    }
     return posts[0].posts.map((post: any) => {
       return (
         <StarPost
@@ -193,6 +214,18 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
   }
 
   function renderLatestPosts(posts: any) {
+    if (posts.length === 0) {
+      return (
+        <Typography
+          align="center"
+          color="textSecondary"
+          variant="h4"
+          style={{ marginLeft: "2vh" }}
+        >
+          No Posts to display
+        </Typography>
+      );
+    }
     return posts.map((post, index) => {
       return (
         <Grid item xl={4} lg={6} xs={12}>
@@ -201,12 +234,17 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
             image={get(post, "image[0].url")}
             title={get(post, "title")}
             category={get(post, "category.title")}
+            categoryID={get(post, "category.id")}
           />
         </Grid>
       );
     });
   }
 };
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 Home.getInitialProps = async ({ req }) => {
   const userAgent = req ? req.headers["user-agent"] || "" : navigator.userAgent;

@@ -9,6 +9,11 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
+  cardBg: {
+    height: 500,
+    backgroundImage: (props: any) => `url(${props.image})`,
+    backgroundSize: "cover"
+  },
   categoryTitle: {
     textTransform: "uppercase",
     marginTop: 10,  
@@ -44,16 +49,15 @@ interface Props {
 }
 
 const FeaturePostHome = (props: Props) => {
+  console.log("PROPS: ", props);
   const router = useRouter();
   const classes = useStyles(props);
   console.log("props: ", props);
   return (
     <Box boxShadow={10}>
       <Card>
-        <CardContent>
-          <Grid container justify="center">
-            <img src={props.image} className={classes.image} />
-          </Grid>
+        <CardContent className={classes.cardBg}>
+      
 
           <Grid
             container
@@ -61,7 +65,10 @@ const FeaturePostHome = (props: Props) => {
             justify="center"
             alignItems="center"
           >
-            <Typography
+           <Grid item xs={3}>
+           <Card>
+              <CardContent>
+              <Typography
               className={classes.categoryTitle}
               color="primary"
               variant="subtitle2"
@@ -80,6 +87,9 @@ const FeaturePostHome = (props: Props) => {
             >
               READ MORE
             </Button>
+              </CardContent>
+            </Card>
+           </Grid>
           </Grid>
         </CardContent>
       </Card>

@@ -2,7 +2,6 @@ import React from "react";
 import Document, { Head, Main, NextScript } from "next/document";
 import { ServerStyleSheets } from "@material-ui/core/styles";
 import theme from "shared/styles/theme";
-import { colors } from "shared/styles/_colors";
 
 
 export default class MyDocument extends Document {
@@ -17,7 +16,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
         </Head>
-        <body>
+        <body style={{backgroundColor: "#F6F6F6"}}>
           <Main />
           <NextScript />
         </body>

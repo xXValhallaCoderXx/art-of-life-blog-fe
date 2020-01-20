@@ -11,6 +11,9 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 
+import {
+  CategoryList
+} from "shared/components/blog";
 import { parseISO, format } from "date-fns";
 import startCase from "lodash/startCase";
 import "github-markdown-css";
@@ -125,15 +128,7 @@ const Post = () => {
                 </Card>
                 <Card className={classes.categoriesCard}>
                   <CardContent>
-                    <Typography
-                      className={classes.relatedArticlesTitle}
-                      color="primary"
-                      align="left"
-                      variant="h5"
-                    >
-                      Categories
-                    </Typography>
-                    {categories(data.categories, data.post.category.id)}
+                    <CategoryList categories={data.categories} />
                   </CardContent>
                 </Card>
               </Grid>
@@ -143,24 +138,6 @@ const Post = () => {
       }}
     </Query>
   );
-
-  function categories(categories, current) {
-    const filtered = categories.filter(category => category.id !== current);
-    return filtered.map((category, index) => {
-      return (
-        <Typography
-          key={index}
-          color="primary"
-          align="left"
-          variant="subtitle2"
-        >
-          <Link href={`/category/${category.id}`}>
-            <a>{startCase(category.title)}</a>
-          </Link>
-        </Typography>
-      );
-    });
-  }
 
   function handleSubCategories(countries, current) {
     const filteredCountries = countries.filter(
