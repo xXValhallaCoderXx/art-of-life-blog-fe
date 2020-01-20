@@ -17,10 +17,20 @@ const useStyles = makeStyles(theme => ({
     marginTop: "2vh"
   },
   subCategoryTitle: {
-    marginBottom: 20
+    color: theme.palette.primary.main,
+    textTransform: "uppercase",
+    marginBottom: 20,
+    "&:hover": {
+      cursor: "pointer"
+    }
   },
   viewAllPosts: {
-    marginTop: 40
+    textTransform: "uppercase",
+    color: theme.palette.primary.main,
+    marginTop: 40,
+    "&:hover": {
+      cursor: "pointer"
+    }
   },
   subCategoryDescription: {
     marginTop: 20,
@@ -48,7 +58,6 @@ const CategoryPage = () => {
   return (
     <Query query={FETCH_CATEGORY_SUBCATEGORY_POSTS} variables={{ id }}>
       {({ data }: any) => {
-        console.log("CATEGORIES", data);
         return (
           <HomeLayout>
             <Grid container spacing={5}>
@@ -88,13 +97,17 @@ const CategoryPage = () => {
             <CardContent>
               <Grid className={classes.subCategoryWrapper}>
                 <Typography variant="h4" className={classes.subCategoryTitle}>
-                  <Link href={`/category/sub-category/${subCategory.id}`}>
-                    <a>{startCase(subCategory.title)}</a>
-                  </Link>
+                  <a
+                    onClick={() =>
+                      router.push(`/category/sub-category/${subCategory.id}`)
+                    }
+                  >
+                    {startCase(subCategory.title)}
+                  </a>
                 </Typography>
                 <Typography
                   className={classes.subCategoryDescription}
-                  color="textPrimary"
+                  color="textSecondary"
                   variant="body1"
                 >
                   {startCase(subCategory.description)}
@@ -104,12 +117,16 @@ const CategoryPage = () => {
                 </Grid>
                 <Typography
                   align="center"
-                  variant="h4"
+                  variant="h5"
                   className={classes.viewAllPosts}
                 >
-                  <Link href={`/category/sub-category/${subCategory.id}`}>
-                    <a>View All {subCategory.title} Posts</a>
-                  </Link>
+                  <a
+                    onClick={() =>
+                      router.push(`/category/sub-category/${subCategory.id}`)
+                    }
+                  >
+                    View All {subCategory.title} Posts
+                  </a>
                 </Typography>
               </Grid>
             </CardContent>

@@ -1,7 +1,6 @@
 import React from "react";
 import get from "lodash/get";
 import { NextPage } from "next";
-import theme from "shared/styles/theme";
 
 import { FETCH_HOME_DATA } from "shared/queries/posts";
 
@@ -124,10 +123,11 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
 
                         <Typography
                           className={classes.bioStyle}
-                          color="secondary"
+                          color="textSecondary"
                           style={{ fontSize: 19 }}
                         >
-                          Hail! i'm Renate! I'm a British / Portuguese human
+                          Hail! i'm Renate! <br/><br/>
+                          I'm a British / Portuguese human
                           (born and raised on little Guernsey), with a huge love
                           for friends, family, travel, fitness and just life in
                           general, and always have a lot to say. <br />

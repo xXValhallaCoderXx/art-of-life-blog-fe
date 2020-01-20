@@ -18,6 +18,7 @@ export const FETCH_SUBCATEGORY_POSTS = gql`
     subCategory(id: $id) {
       id
       title
+      description
       category {
         id
         title
@@ -25,7 +26,18 @@ export const FETCH_SUBCATEGORY_POSTS = gql`
       posts {
         id
         title
+        category {
+          id
+          title
+        }
+        image {
+        url
       }
+      }
+    }
+    categories {
+      id
+      title
     }
   }
 `;
