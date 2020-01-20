@@ -124,6 +124,7 @@ export const FETCH_HOME_DATA = gql`
       post {
         id
         title
+        published_at
         category {
           id
           title

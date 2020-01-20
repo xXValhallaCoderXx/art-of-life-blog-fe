@@ -1,7 +1,7 @@
 import React from "react";
-import { NextPage } from "next";
-import theme from "shared/styles/theme";
 import get from "lodash/get";
+import { NextPage } from "next";
+
 import { FETCH_HOME_DATA } from "shared/queries/posts";
 
 import { HomeLayout } from "shared/components/layouts";
@@ -13,9 +13,8 @@ import {
 } from "shared/components/blog";
 import { ErrorBoundary } from "shared/components";
 
-import MuiAlert from '@material-ui/lab/Alert';
+import MuiAlert from "@material-ui/lab/Alert";
 import { Snackbar } from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -23,14 +22,12 @@ import Box from "@material-ui/core/Box";
 import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
 import Query from "shared/components/query-component";
-import { colors } from "shared/styles/_colors";
 
 const useStyles = makeStyles(theme => ({
-  large: {
-    border: `5px solid ${theme.palette.primary.main}`,
-    margin: "0 auto",
-    width: theme.spacing(20),
-    height: theme.spacing(20)
+  avatarImage: {
+    maxHeight: 300,
+    width: "100%",
+    objectFit: "cover"
   },
   stickyPostTitle: {
     marginTop: 20,
@@ -47,12 +44,6 @@ const useStyles = makeStyles(theme => ({
   latestPostTitle: {
     marginTop: 50,
     marginBottom: 30
-  },
-  imageWrapper: {
-    height: 50
-  },
-  postsCard: {
-    marginTop: 40
   },
   latestPostContainer: {
     paddingRight: 10
@@ -114,26 +105,28 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                 </Grid>
                 <Grid item xs={12} lg={3}>
                   <Box boxShadow={5}>
-                    
-                      <Card>
-                        <CardContent style={{padding: 30}}>
+                    <Card>
+                      <CardContent style={{ padding: 30 }}>
                         <Typography
-                          style={{marginBottom: 10}}
+                          style={{ marginBottom: 10 }}
                           color="textPrimary"
-                          variant="h5"
+                          variant="h6"
                         >
                           ABOUT ME
                         </Typography>
-                          <img src={avatarImage} />
-                       
+                        <img
+                          src={avatarImage}
+                          className={classes.avatarImage}
+                        />
+
                         <Typography
                           className={classes.bioStyle}
                           color="textPrimary"
-                          variant="body1"
+                          style={{ fontSize: 19 }}
                         >
-                          Hi i'm Renate! I'm a British / Portuguese human (born
-                          and raised on little Guernsey), with a huge love for
-                          friends, family, travel, fitness and just life in
+                          Hail! i'm Renate! I'm a British / Portuguese human
+                          (born and raised on little Guernsey), with a huge love
+                          for friends, family, travel, fitness and just life in
                           general, and always have a lot to say. <br />
                           <br />
                           This will be my platform to share my thoughts and
@@ -152,11 +145,9 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                         <div style={{ marginTop: 40 }}>
                           <CategoryList categories={data.categories} />
                         </div>
-                   
-                        </CardContent>
-                      </Card>
+                      </CardContent>
+                    </Card>
                   </Box>
-             
                 </Grid>
               </Grid>
             </HomeLayout>
@@ -167,10 +158,10 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
   );
 
   function renderFeaturePost(post) {
-    console.log("FEATURE: ", post);
     if (post) {
       return (
         <FeaturePostHome
+          publishedAt={get(post, "post.published_at")}
           image={get(post, "post.image[0].url")}
           category={get(post, "post.category.title")}
           title={get(post, "post.title")}
