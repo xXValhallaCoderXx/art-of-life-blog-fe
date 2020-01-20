@@ -10,7 +10,6 @@ const CategoryIndex = () => {
   return (
     <Query query={FETCH_CATEGORY_SUBCATEGORY}>
       {({ data }: any) => {
-        console.log("CATEGORIES", data);
         return (
           <HomeLayout>
             <Grid container direction="row" spacing={10}>
