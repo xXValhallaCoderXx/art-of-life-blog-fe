@@ -33,10 +33,9 @@ const useStyles = makeStyles(theme => ({
   stickyPostTitle: {
     marginTop: "5vh",
     marginBottom: 20,
-    borderBottom: `2px solid ${theme.palette.primary.light}`
   },
   categoryWrapper: {
-    marginTop: "5vh"
+    marginTop: "5vh",
   },
   bioStyle: {
     marginTop: 15
@@ -110,9 +109,9 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                 <Grid item xs={12} lg={3}>
                   <Box boxShadow={5}>
                     <Card>
-                      <CardContent style={{ padding: 30 }}>
+                      <CardContent style={{ padding: 40 }}>
                         <Typography
-                          style={{ marginBottom: 10 }}
+                          style={{ marginBottom: 10, marginTop: -10 }}
                           color="textPrimary"
                           variant="h6"
                         >
@@ -143,9 +142,9 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                         >
                           PINNED ARTICLES
                         </Typography>
-                        <Grid container spacing={2}>
+                        <div>
                           {renderStarPosts(data.starPosts)}
-                        </Grid>
+                        </div>
                         <div className={classes.categoryWrapper}>
                           <CategoryList categories={data.categories} />
                         </div>

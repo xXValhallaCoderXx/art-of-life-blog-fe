@@ -29,8 +29,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     textTransform: "uppercase",
     "&:hover": {
-      cursor: "pointer",
-      color: theme.palette.primary.dark
+      cursor: "pointer"
     }
   },
   postTitle: {

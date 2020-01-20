@@ -22,10 +22,9 @@ const useStyles = makeStyles(theme => ({
   },
   categoryTitle: {
     textTransform: "uppercase",
-    color: theme.palette.primary.dark,
+    color: theme.palette.primary.main,
     "&:hover": {
-      cursor: "pointer",
-      color: theme.palette.primary.light
+      cursor: "pointer"
     }
   },
   buttonWrapper: {

@@ -5,6 +5,7 @@ import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   categoryTitle: {
+    paddingBottom: 20,
     borderBottom: `2px solid ${theme.palette.secondary.main}`
   },
   category: {
@@ -32,7 +33,9 @@ const CategoryList = ({categories}) => {
       >
         CATEGORIES
       </Typography>
-      {renderCategories()}
+     <div>
+        {renderCategories()}
+     </div>
     </div>
   );
 
