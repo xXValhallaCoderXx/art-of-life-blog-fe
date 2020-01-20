@@ -12,6 +12,14 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(theme => ({
+  contentWrapper: {
+    padding: 20
+  },
+  title: {
+    marginTop: 20,
+    marginBottom: 20,
+    textTransform: "uppercase"
+  },
   categoryTitle: {
     textTransform: "uppercase",
     color: theme.palette.primary.dark,
@@ -21,14 +29,17 @@ const useStyles = makeStyles(theme => ({
     }
   },
   buttonWrapper: {
-    marginTop: 10
+   fontWeight: 600,
+   fontSize: 18,
+   padding: 15,
+   paddingLeft: 40,
+   paddingRight: 40
   },
   image: {
     objectFit: "cover",
     objectPosition: "50% 0%",
     width: "100%",
     height: 250,
-    marginBottom: 20
   }
 }));
 
@@ -56,12 +67,13 @@ const LatestPostCard = ({
     <Box boxShadow={shadow}>
       <Card>
         <CardContent style={{padding: 0}}>
-        <img className={classes.image} src={image} />
+          <img className={classes.image} src={image} />
           <Grid
             container
             direction="column"
             justify="center"
             alignItems="center"
+            className={classes.contentWrapper}
           >
             
             <Typography
@@ -72,7 +84,7 @@ const LatestPostCard = ({
             >
               {startCase(category)}
             </Typography>
-            <Typography color="primary" variant="h6">
+            <Typography color="textPrimary" variant="h4" className={classes.title}>
               {title}
             </Typography>
             <Button

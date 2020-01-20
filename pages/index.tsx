@@ -87,10 +87,10 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                     <Grid container direction="column" spacing={3}>
                       <Typography
                         className={classes.latestPostTitle}
-                        variant="h3"
+                        variant="h4"
                         color="primary"
                       >
-                        Latest Posts
+                        LATEST POSTS
                       </Typography>
                       <Grid
                         container

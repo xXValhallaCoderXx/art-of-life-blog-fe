@@ -5,14 +5,14 @@ import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   categoryTitle: {
-    borderBottom: `2px solid ${theme.palette.primary.light}`
+    borderBottom: `2px solid ${theme.palette.secondary.main}`
   },
   category: {
-    color: theme.palette.primary.light,
-    borderBottom: `2px solid ${theme.palette.primary.light}`,
+    color: theme.palette.secondary.dark,
+    borderBottom: `2px solid ${theme.palette.secondary.main}`,
     padding: 10,
     "&:hover": {
-      color: theme.palette.primary.dark,
+      color: theme.palette.primary.main,
       cursor: "pointer"
     }
   },

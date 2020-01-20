@@ -13,14 +13,17 @@ const useStyles = makeStyles(theme => ({
   cardBg: {
     height: 500,
     backgroundImage: (props: any) => `url(${props.image})`,
-    backgroundSize: "cover"
+    backgroundSize: "cover",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   },
   cardWrapper: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    padding: 40
+    padding: 40,
   },
   categoryTitle: {
     fontWeight: 600,
@@ -66,12 +69,7 @@ const FeaturePostHome = (props: Props) => {
     <Box boxShadow={10}>
       <Card>
         <CardContent className={classes.cardBg}>
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-          >
+       
             <Grid item xs={4}>
               <Card className={classes.cardWrapper}>
                 <Typography
@@ -107,7 +105,7 @@ const FeaturePostHome = (props: Props) => {
                 </Button>
               </Card>
             </Grid>
-          </Grid>
+      
         </CardContent>
       </Card>
     </Box>
