@@ -75,7 +75,7 @@ const CategoryPage = () => {
                 {renderSubcategories(data.category.sub_categories)}
               </Grid>
 
-              <Grid item lg={3}>
+              <Grid item xs={12} lg={4}>
                 <Card>
                   <CardContent>
                     <CategoryList categories={data.categories} />

@@ -26,7 +26,6 @@ const CategoryPage = () => {
   return (
     <Query query={FETCH_SUBCATEGORY_POSTS} variables={{ id }}>
       {({ data }: any) => {
-        console.log("SUB CAT: ", data);
         return (
           <HomeLayout>
             <Grid container spacing={3}>
