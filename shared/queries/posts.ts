@@ -18,6 +18,7 @@ export const FETCH_SUBCATEGORY_POSTS = gql`
     subCategory(id: $id) {
       id
       title
+      description
       category {
         id
         title
@@ -25,7 +26,18 @@ export const FETCH_SUBCATEGORY_POSTS = gql`
       posts {
         id
         title
+        category {
+          id
+          title
+        }
+        image {
+        url
       }
+      }
+    }
+    categories {
+      id
+      title
     }
   }
 `;
@@ -39,13 +51,24 @@ export const FETCH_CATEGORY_SUBCATEGORY_POSTS = gql`
       sub_categories {
         id
         title
+        description
         posts(limit: 3, sort: "created_at:DESC") {
           id
           title
+          image {
+            url
+          }
+          category {
+            title
+          }
         }
       }
     }
-    categories: categories(where: { id_ne: $id }) {
+    # categories: categories(where: { id_ne: $id }) {
+    #   id
+    #   title
+    # }
+    categories: categories {
       id
       title
     }
@@ -58,6 +81,9 @@ export const FETCH_POST = gql`
       id
       title
       content
+      image {
+        url
+      }
       sub_category {
         id
         title
@@ -75,6 +101,10 @@ export const FETCH_POST = gql`
           title
         }
       }
+    }
+    categories {
+      id
+      title
     }
   }
 `;
@@ -98,6 +128,7 @@ export const FETCH_HOME_DATA = gql`
         url
       }
       category {
+        id
         title
       }
     }
@@ -105,7 +136,9 @@ export const FETCH_HOME_DATA = gql`
       post {
         id
         title
+        published_at
         category {
+          id
           title
         }
         image {
@@ -117,13 +150,19 @@ export const FETCH_HOME_DATA = gql`
       posts {
         id
         title
+        published_at
         category {
+          id
           title
         }
         image {
           url
         }
       }
+    }
+    categories {
+      id
+      title
     }
   }
 `;

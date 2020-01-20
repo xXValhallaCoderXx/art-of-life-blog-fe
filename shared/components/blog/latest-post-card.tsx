@@ -1,5 +1,5 @@
 import React from "react";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 import { makeStyles } from "@material-ui/core/styles";
 import startCase from "lodash/startCase";
@@ -12,15 +12,33 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(theme => ({
+  contentWrapper: {
+    padding: 20
+  },
+  title: {
+    marginTop: 20,
+    marginBottom: 20,
+    textTransform: "uppercase"
+  },
+  categoryTitle: {
+    textTransform: "uppercase",
+    color: theme.palette.primary.main,
+    "&:hover": {
+      cursor: "pointer"
+    }
+  },
   buttonWrapper: {
-    marginTop: 10
+   fontWeight: 600,
+   fontSize: 18,
+   padding: 15,
+   paddingLeft: 40,
+   paddingRight: 40
   },
   image: {
     objectFit: "cover",
     objectPosition: "50% 0%",
     width: "100%",
     height: 250,
-    marginBottom: 20
   }
 }));
 
@@ -29,26 +47,43 @@ interface Props {
   category: string;
   image: string;
   id: string;
+  shadow?: number;
+  categoryID: string;
 }
 
-const LatestPostCard = ({ title, category, image, id }: Props) => {
+const LatestPostCard = ({
+  title,
+  category,
+  image,
+  id,
+  shadow,
+  categoryID
+}: Props) => {
   // @ts-ignore
   const classes = useStyles();
+  const router = useRouter();
   return (
-    <Box boxShadow={10}>
+    <Box boxShadow={shadow}>
       <Card>
-        <CardContent>
+        <CardContent style={{padding: 0}}>
+          <img className={classes.image} src={image} />
           <Grid
             container
             direction="column"
             justify="center"
             alignItems="center"
+            className={classes.contentWrapper}
           >
-            <img className={classes.image} src={image} />
-            <Typography color="primary" variant="subtitle1">
+            
+            <Typography
+              onClick={() => router.push(`/category/${categoryID}`)}
+              color="primary"
+              variant="subtitle1"
+              className={classes.categoryTitle}
+            >
               {startCase(category)}
             </Typography>
-            <Typography color="primary" variant="h6">
+            <Typography color="textPrimary" variant="h4" className={classes.title}>
               {title}
             </Typography>
             <Button
@@ -56,7 +91,7 @@ const LatestPostCard = ({ title, category, image, id }: Props) => {
               variant="contained"
               color="primary"
               disableElevation
-              onClick={() => Router.push(`/article/${id}`)}
+              onClick={() => router.push(`/article/${id}`)}
             >
               READ MORE
             </Button>

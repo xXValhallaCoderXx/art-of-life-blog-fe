@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { SideDrawer } from "shared/components/navigation";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
@@ -12,12 +13,12 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import { colors } from "shared/styles/_colors";
 import "shared/styles/index.scss";
+
 
 const navStyles = makeStyles(theme => ({
   topNav: {
-    backgroundColor: theme.palette.primary.dark
+    backgroundColor: theme.palette.primary.main
   },
   socialIcon: {
     "&:hover": {
@@ -34,7 +35,10 @@ const navStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2)
   },
   title: {
-    marginLeft: 15
+    textTransform: "uppercase",
+    "&:hover": {
+      cursor: "pointer"
+    }
   }
 }));
 
@@ -42,6 +46,7 @@ const TopNav = () => {
   const [sideOpen, setSideOpen] = React.useState(false);
   // @ts-ignore
   const classes = navStyles();
+  const router = useRouter();
   function toggleSidedrawer() {
     setSideOpen(!sideOpen);
   }
@@ -76,7 +81,7 @@ const TopNav = () => {
   return (
     <AppBar className={classes.topNav}>
       <Toolbar>
-        <Box>
+        {/* <Box>
           <IconButton
             onClick={toggleSidedrawer}
             edge="start"
@@ -86,10 +91,15 @@ const TopNav = () => {
           >
             <MenuIcon />
           </IconButton>
-        </Box>
+        </Box> */}
 
         <Box flexGrow={1}>
-          <Typography align="left" variant="h6">
+          <Typography
+            className={classes.title}
+            align="left"
+            variant="h6"
+            onClick={() => router.push("/")}
+          >
             Art Of Life
           </Typography>
         </Box>

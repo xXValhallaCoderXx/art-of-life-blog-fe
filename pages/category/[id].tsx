@@ -8,19 +8,35 @@ import { makeStyles } from "@material-ui/core/styles";
 import { FETCH_CATEGORY_SUBCATEGORY_POSTS } from "shared/queries/posts";
 
 import { HomeLayout } from "shared/components/layouts";
-import { LatestPostCard } from "shared/components/blog";
+import { LatestPostCard, CategoryList } from "shared/components/blog";
 
-import { Grid, Typography, Card, CardContent } from "@material-ui/core";
+import { Grid, Typography, Card, CardContent, Box } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   subCategoryWrapper: {
-    padding: 20
+    marginTop: "2vh"
   },
   subCategoryTitle: {
-    marginBottom: 30
+    color: theme.palette.primary.main,
+    textTransform: "uppercase",
+    marginBottom: 20,
+    "&:hover": {
+      cursor: "pointer"
+    }
+  },
+  viewAllPosts: {
+    textTransform: "uppercase",
+    color: theme.palette.primary.main,
+    marginTop: 40,
+    "&:hover": {
+      cursor: "pointer"
+    }
+  },
+  subCategoryDescription: {
+    marginTop: 20,
+    marginBottom: 20
   },
   categoryDescription: {
-    marginLeft: 20,
     marginTop: 20
   },
   categoryTitle: {
@@ -28,6 +44,9 @@ const useStyles = makeStyles(theme => ({
   },
   categoryLink: {
     marginBottom: 10
+  },
+  cardWrapper: {
+    marginTop: 30
   }
 }));
 
@@ -39,30 +58,27 @@ const CategoryPage = () => {
   return (
     <Query query={FETCH_CATEGORY_SUBCATEGORY_POSTS} variables={{ id }}>
       {({ data }: any) => {
-        console.log("CATEGORIES", data);
         return (
           <HomeLayout>
             <Grid container spacing={5}>
               <Grid item lg={9}>
-                <Typography variant="h3">
+                <Typography variant="h3" color="primary">
                   {startCase(data.category.title)}
                 </Typography>
                 <Typography
                   className={classes.categoryDescription}
-                  variant="h5"
+                  color="textPrimary"
+                  variant="body1"
                 >
                   {startCase(data.category.description)}
                 </Typography>
                 {renderSubcategories(data.category.sub_categories)}
               </Grid>
 
-              <Grid item lg={3}>
+              <Grid item xs={12} lg={4}>
                 <Card>
                   <CardContent>
-                    <Typography variant="h5" className={classes.categoryTitle}>
-                      Categories
-                    </Typography>
-                    {renderCategories(data.categories)}
+                    <CategoryList categories={data.categories} />
                   </CardContent>
                 </Card>
               </Grid>
@@ -73,34 +89,49 @@ const CategoryPage = () => {
     </Query>
   );
 
-  function renderCategories(categories) {
-    return categories.map((category, index) => {
-      return (
-        <Typography
-          onClick={() => router.push(`/category/${category.id}`)}
-          variant="h6"
-          key={index}
-          className={classes.categoryTitle}
-        >
-          {startCase(category.title)}
-        </Typography>
-      );
-    });
-  }
-
   function renderSubcategories(subCategories) {
     return subCategories.map((subCategory, index) => {
       return (
-        <Grid className={classes.subCategoryWrapper}>
-          <Typography variant="h4" className={classes.subCategoryTitle}>
-            <Link href={`/category/sub-category/${subCategory.id}`}>
-              <a>{startCase(subCategory.title)}</a>
-            </Link>
-          </Typography>
-          <Grid container alignItems="stretch" spacing={5}>
-            {renderPosts(subCategory.posts)}
-          </Grid>
-        </Grid>
+        <Box boxShadow={10}>
+          <Card className={classes.cardWrapper}>
+            <CardContent>
+              <Grid className={classes.subCategoryWrapper}>
+                <Typography variant="h4" className={classes.subCategoryTitle}>
+                  <a
+                    onClick={() =>
+                      router.push(`/category/sub-category/${subCategory.id}`)
+                    }
+                  >
+                    {startCase(subCategory.title)}
+                  </a>
+                </Typography>
+                <Typography
+                  className={classes.subCategoryDescription}
+                  color="textSecondary"
+                  variant="body1"
+                >
+                  {startCase(subCategory.description)}
+                </Typography>
+                <Grid container alignItems="stretch" spacing={5}>
+                  {renderPosts(subCategory.posts)}
+                </Grid>
+                <Typography
+                  align="center"
+                  variant="h5"
+                  className={classes.viewAllPosts}
+                >
+                  <a
+                    onClick={() =>
+                      router.push(`/category/sub-category/${subCategory.id}`)
+                    }
+                  >
+                    View All {subCategory.title} Posts
+                  </a>
+                </Typography>
+              </Grid>
+            </CardContent>
+          </Card>
+        </Box>
       );
     });
   }
@@ -113,7 +144,9 @@ const CategoryPage = () => {
             id={get(post, "id")}
             image={get(post, "image[0].url")}
             title={get(post, "title")}
-            category={get(post, "category.name")}
+            category={get(post, "category.title")}
+            categoryID={get(post, "category.id")}
+            shadow={0}
           />
         </Grid>
       );
