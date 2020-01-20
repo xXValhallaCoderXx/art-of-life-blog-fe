@@ -5,7 +5,6 @@ import { createHttpLink } from "apollo-link-http";
 import fetch from "isomorphic-unfetch";
 
 // Update the GraphQL endpoint to any instance of GraphQL that you like
-const API_URL = process.env.API_URL;
 const GRAPHQL_URL = `https://art-of-life-blog-be.herokuapp.com/graphql`;
 
 const link = createHttpLink({  

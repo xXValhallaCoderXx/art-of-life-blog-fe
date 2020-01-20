@@ -1,6 +1,8 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { SideDrawer } from "shared/components/navigation";
 import { makeStyles } from "@material-ui/core/styles";
+import { Box } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
@@ -11,12 +13,12 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import {colors} from "shared/styles/_colors";
 import "shared/styles/index.scss";
+
 
 const navStyles = makeStyles(theme => ({
   topNav: {
-    backgroundColor: colors.darkAccent
+    backgroundColor: theme.palette.primary.main
   },
   socialIcon: {
     "&:hover": {
@@ -31,6 +33,12 @@ const navStyles = makeStyles(theme => ({
   },
   menuButton: {
     marginRight: theme.spacing(2)
+  },
+  title: {
+    textTransform: "uppercase",
+    "&:hover": {
+      cursor: "pointer"
+    }
   }
 }));
 
@@ -38,6 +46,7 @@ const TopNav = () => {
   const [sideOpen, setSideOpen] = React.useState(false);
   // @ts-ignore
   const classes = navStyles();
+  const router = useRouter();
   function toggleSidedrawer() {
     setSideOpen(!sideOpen);
   }
@@ -72,7 +81,7 @@ const TopNav = () => {
   return (
     <AppBar className={classes.topNav}>
       <Toolbar>
-        <Grid item xs={4}>
+        {/* <Box>
           <IconButton
             onClick={toggleSidedrawer}
             edge="start"
@@ -82,8 +91,19 @@ const TopNav = () => {
           >
             <MenuIcon />
           </IconButton>
-        </Grid>
-        <Grid item xs={4}></Grid>
+        </Box> */}
+
+        <Box flexGrow={1}>
+          <Typography
+            className={classes.title}
+            align="left"
+            variant="h6"
+            onClick={() => router.push("/")}
+          >
+            Art Of Life
+          </Typography>
+        </Box>
+
         <Grid
           item
           component="div"
@@ -91,7 +111,7 @@ const TopNav = () => {
           container
           alignItems="flex-start"
           justify="flex-end"
-          xs={4}
+          xs={6}
         >
           <Grid item>
             <GitHubIcon
