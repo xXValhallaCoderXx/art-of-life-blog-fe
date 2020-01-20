@@ -1,6 +1,7 @@
 import React from "react";
 import get from "lodash/get";
 import { NextPage } from "next";
+import theme from "shared/styles/theme";
 
 import { FETCH_HOME_DATA } from "shared/queries/posts";
 
@@ -30,9 +31,12 @@ const useStyles = makeStyles(theme => ({
     objectFit: "cover"
   },
   stickyPostTitle: {
-    marginTop: 20,
+    marginTop: "5vh",
     marginBottom: 20,
     borderBottom: `2px solid ${theme.palette.primary.light}`
+  },
+  categoryWrapper: {
+    marginTop: "5vh"
   },
   bioStyle: {
     marginTop: 15
@@ -121,7 +125,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
 
                         <Typography
                           className={classes.bioStyle}
-                          color="textPrimary"
+                          color="secondary"
                           style={{ fontSize: 19 }}
                         >
                           Hail! i'm Renate! I'm a British / Portuguese human
@@ -142,7 +146,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                         <Grid container spacing={2}>
                           {renderStarPosts(data.starPosts)}
                         </Grid>
-                        <div style={{ marginTop: 40 }}>
+                        <div className={classes.categoryWrapper}>
                           <CategoryList categories={data.categories} />
                         </div>
                       </CardContent>

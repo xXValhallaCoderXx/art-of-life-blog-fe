@@ -92,7 +92,7 @@ const FeaturePostHome = (props: Props) => {
                   color="textSecondary"
                   variant="body1"
                 >
-                  {format(parsedDate, "Do MMM yyyy")}
+                 {format(parsedDate, "MMM do yyyy")}
                 </Typography>
                 <Button
                   onClick={() => router.push(`/article/${props.id}`)}
