@@ -24,6 +24,9 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center",
     alignItems: "center",
     padding: 40,
+    [theme.breakpoints.down("md")]: {
+      padding: 20
+    }
   },
   categoryTitle: {
     fontWeight: 600,
@@ -35,7 +38,11 @@ const useStyles = makeStyles(theme => ({
   postTitle: {
     textTransform: "uppercase",
     marginTop: 20,
-    marginBottom: 20
+    marginBottom: 20,
+    [theme.breakpoints.down("md")]: {
+      fontSize: "1.2rem",
+      textAlign: "center"
+    }
   },
   text: {
     paddingLeft: 40,
@@ -48,6 +55,11 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     "&:hover": {
       cursor: "pointer"
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "0.8rem",
+      paddingLeft: 20,
+      paddingRight: 20,
     }
   }
 }));
@@ -68,43 +80,41 @@ const FeaturePostHome = (props: Props) => {
     <Box boxShadow={10}>
       <Card>
         <CardContent className={classes.cardBg}>
-       
-            <Grid item xs={4}>
-              <Card className={classes.cardWrapper}>
-                <Typography
-                  className={classes.categoryTitle}
-                  color="primary"
-                  variant="subtitle2"
-                  align="center"
-                >
-                  {props.category}
-                </Typography>
-                <Typography
-                  className={classes.postTitle}
-                  color="textPrimary"
-                  variant="h4"
-                >
-                  {props.title}
-                </Typography>
-                <Typography
-                  style={{ marginBottom: 20 }}
-                  color="textSecondary"
-                  variant="body1"
-                >
-                 {format(parsedDate, "MMM do yyyy")}
-                </Typography>
-                <Button
-                  onClick={() => router.push(`/article/${props.id}`)}
-                  className={classes.text}
-                  variant="contained"
-                  color="primary"
-                  disableElevation
-                >
-                  READ MORE
-                </Button>
-              </Card>
-            </Grid>
-      
+          <Grid item xs={9} sm={4}>
+            <Card className={classes.cardWrapper}>
+              <Typography
+                className={classes.categoryTitle}
+                color="primary"
+                variant="subtitle2"
+                align="center"
+              >
+                {props.category}
+              </Typography>
+              <Typography
+                className={classes.postTitle}
+                color="textPrimary"
+                variant="h4"
+              >
+                {props.title}
+              </Typography>
+              <Typography
+                style={{ marginBottom: 20 }}
+                color="textSecondary"
+                variant="body1"
+              >
+                {format(parsedDate, "MMM do yyyy")}
+              </Typography>
+              <Button
+                onClick={() => router.push(`/article/${props.id}`)}
+                className={classes.text}
+                variant="contained"
+                color="primary"
+                disableElevation
+              >
+                READ MORE
+              </Button>
+            </Card>
+          </Grid>
         </CardContent>
       </Card>
     </Box>
