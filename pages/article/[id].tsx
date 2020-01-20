@@ -17,8 +17,6 @@ import { parseISO, format } from "date-fns";
 import startCase from "lodash/startCase";
 import "github-markdown-css";
 
-// import startCase from "lodash-es/startCase";
-
 const useStyles = makeStyles(theme => ({
   cardWrapper: {
     marginTop: -30,

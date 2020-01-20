@@ -35,6 +35,7 @@ const navStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2)
   },
   title: {
+    textTransform: "uppercase",
     "&:hover": {
       cursor: "pointer"
     }
@@ -80,7 +81,7 @@ const TopNav = () => {
   return (
     <AppBar className={classes.topNav}>
       <Toolbar>
-        <Box>
+        {/* <Box>
           <IconButton
             onClick={toggleSidedrawer}
             edge="start"
@@ -90,7 +91,7 @@ const TopNav = () => {
           >
             <MenuIcon />
           </IconButton>
-        </Box>
+        </Box> */}
 
         <Box flexGrow={1}>
           <Typography
