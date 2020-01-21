@@ -2,15 +2,22 @@ import React from "react";
 import { ApolloProvider } from "@apollo/react-hooks";
 import withData from "../shared/utils/apollo-setup";
 import { ThemeProvider } from "@material-ui/core/styles";
+import mixpanel from "mixpanel-browser";
+import { MixpanelProvider } from "react-mixpanel";
 import theme from "shared/styles/theme";
+
+mixpanel.init(process.env.MIXPANEL_ID);
+mixpanel.identify();
 
 const App: any = ({ Component, pageProps, apollo }: any) => {
   return (
-    <ThemeProvider theme={theme}>
-      <ApolloProvider client={apollo}>
-        <Component {...pageProps} />
-      </ApolloProvider>
-    </ThemeProvider>
+    <MixpanelProvider mixpanel={mixpanel}>
+      <ThemeProvider theme={theme}>
+        <ApolloProvider client={apollo}>
+          <Component {...pageProps} />
+        </ApolloProvider>
+      </ThemeProvider>
+    </MixpanelProvider>
   );
 };
 

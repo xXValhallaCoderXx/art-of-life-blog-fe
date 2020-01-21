@@ -1,10 +1,12 @@
 {
   "env": {
-    "API_URL": "@api_url"
+    "API_URL": "@api_url",
+    "MIXPANEL_ID": "@mixpanel"
   },
   "build": {
     "env": {
-      "API_URL": "@api_url"
+      "API_URL": "@api_url",
+      "MIXPANEL_ID": "@mixpanel"
     }
   }
 }

@@ -193,9 +193,10 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
         </Typography>
       );
     }
-    return posts[0].posts.map((post: any) => {
+    return posts[0].posts.map((post: any, index: any) => {
       return (
         <StarPost
+          key={index}
           id={post.id}
           publishedAt={post.published_at}
           categoryID={post.category.id}
@@ -222,7 +223,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
     }
     return posts.map((post, index) => {
       return (
-        <Grid item md={4} xs={12}>
+        <Grid item md={4} xs={12} key={index}>
           <LatestPostCard
             id={get(post, "id")}
             image={get(post, "image[0].url")}
