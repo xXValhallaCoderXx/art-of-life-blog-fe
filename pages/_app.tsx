@@ -6,7 +6,8 @@ import mixpanel from "mixpanel-browser";
 import { MixpanelProvider } from "react-mixpanel";
 import theme from "shared/styles/theme";
 
-mixpanel.init("a5b1c837a1313cb3863d5563dc6bbcc0");
+mixpanel.init(process.env.MIXPANEL_ID);
+mixpanel.identify();
 
 const App: any = ({ Component, pageProps, apollo }: any) => {
   return (
