@@ -81,7 +81,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                 </Alert>
               </Snackbar>
               <Grid container spacing={3}>
-                <Grid item xs={12} lg={9}>
+                <Grid item xs={12} md={9} lg={9}>
                   <section id="feature-post">
                     {renderFeaturePost(data.featurePost)}
                   </section>
@@ -105,7 +105,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                     </Grid>
                   </section>
                 </Grid>
-                <Grid item xs={12} lg={3}>
+                <Grid item xs={12} md={9} lg={3}>
                   <Box boxShadow={5}>
                     <Card>
                       <CardContent style={{ padding: 40 }}>
@@ -222,7 +222,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
     }
     return posts.map((post, index) => {
       return (
-        <Grid item xl={4} lg={6} xs={12}>
+        <Grid item md={4} xs={12}>
           <LatestPostCard
             id={get(post, "id")}
             image={get(post, "image[0].url")}
