@@ -1,9 +1,11 @@
 import React from "react";
 import Head from "next/head";
+import { useRouter } from 'next/router'
 import { makeStyles } from "@material-ui/core/styles";
 import { TopNav } from "../navigation";
 import Container from "@material-ui/core/Container";
 import MY_SEO from "shared/utils/seo-meta";
+import { MixpanelConsumer } from "react-mixpanel";
 import { initGA, logPageView } from "shared/utils/ga-analytics";
 
 interface Props {
@@ -20,6 +22,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({ children, title, description, image }: Props) => {
+  const router = useRouter()
   // @ts-ignore
   const classes = useStyles();
   React.useEffect(() => {
@@ -32,29 +35,48 @@ export default ({ children, title, description, image }: Props) => {
     logPageView();
   }, []);
   return (
-    <div>
-      <Head>
-        <title key="title">{MY_SEO.title}</title>
+    <MixpanelConsumer>
+      {mixpanel => {
+        mixpanel.track("PAGE VIEW", { page: router.pathname});
+        return (
+          <div>
+          <Head>
+            <title key="title">{MY_SEO.title}</title>
 
-        <meta
-          key="description"
-          name="description"
-          content={MY_SEO.description}
-        />
-        <meta key="og:type" name="og:type" content={MY_SEO.openGraph.type} />
-        <meta key="og:title" name="og:title" content={MY_SEO.openGraph.title} />
-        <meta
-          key="og:description"
-          name="og:description"
-          content={MY_SEO.openGraph.description}
-        />
-        <meta key="og:url" name="og:url" content={MY_SEO.openGraph.url} />
-        <meta key="og:image" name="og:image" content={MY_SEO.openGraph.image} />
-      </Head>
-      <div className={classes.innerContainer}>
-        <TopNav />
-        <Container maxWidth="xl">{children}</Container>
-      </div>
-    </div>
+            <meta
+              key="description"
+              name="description"
+              content={MY_SEO.description}
+            />
+            <meta
+              key="og:type"
+              name="og:type"
+              content={MY_SEO.openGraph.type}
+            />
+            <meta
+              key="og:title"
+              name="og:title"
+              content={MY_SEO.openGraph.title}
+            />
+            <meta
+              key="og:description"
+              name="og:description"
+              content={MY_SEO.openGraph.description}
+            />
+            <meta key="og:url" name="og:url" content={MY_SEO.openGraph.url} />
+            <meta
+              key="og:image"
+              name="og:image"
+              content={MY_SEO.openGraph.image}
+            />
+          </Head>
+          <div className={classes.innerContainer}>
+            <TopNav />
+            <Container maxWidth="xl">{children}</Container>
+          </div>
+        </div>
+        )
+      }}
+    </MixpanelConsumer>
   );
 };
