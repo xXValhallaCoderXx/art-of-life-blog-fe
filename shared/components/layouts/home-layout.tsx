@@ -1,8 +1,10 @@
+import React from "react";
 import Head from "next/head";
 import { makeStyles } from "@material-ui/core/styles";
 import { TopNav } from "../navigation";
 import Container from "@material-ui/core/Container";
 import MY_SEO from "shared/utils/seo-meta";
+import { initGA, logPageView } from "shared/utils/ga-analytics";
 
 interface Props {
   title?: string;
@@ -20,6 +22,15 @@ const useStyles = makeStyles(theme => ({
 export default ({ children, title, description, image }: Props) => {
   // @ts-ignore
   const classes = useStyles();
+  React.useEffect(() => {
+    // @ts-ignore
+    if (!window.GA_INITIALIZED) {
+      initGA();
+      // @ts-ignore
+      window.GA_INITIALIZED = true;
+    }
+    logPageView();
+  }, []);
   return (
     <div>
       <Head>
