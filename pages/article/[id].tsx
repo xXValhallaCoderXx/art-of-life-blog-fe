@@ -94,12 +94,12 @@ const Post = () => {
                       className={classes.title}
                       color="textPrimary"
                       align="left"
-                      variant="h2"
+                      variant="h4"
                     >
                       {data.post.title}
                     </Typography>
 
-                    <div className={"markdown-body"}>
+                    <div className={"markdown-wrapper markdown-body"}>
                       <ReactMarkdown source={data.post.content} />
                     </div>
                   </div>

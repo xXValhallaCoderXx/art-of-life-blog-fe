@@ -61,7 +61,7 @@ const CategoryPage = () => {
         return (
           <HomeLayout>
             <Grid container spacing={5}>
-              <Grid item lg={9}>
+              <Grid item xs={12} lg={9}>
                 <Typography variant="h3" color="primary">
                   {startCase(data.category.title)}
                 </Typography>
@@ -70,12 +70,12 @@ const CategoryPage = () => {
                   color="textPrimary"
                   variant="body1"
                 >
-                  {startCase(data.category.description)}
+                  {data.category.description}
                 </Typography>
                 {renderSubcategories(data.category.sub_categories)}
               </Grid>
 
-              <Grid item xs={12} lg={4}>
+              <Grid item xs={12} lg={3}>
                 <Card>
                   <CardContent>
                     <CategoryList categories={data.categories} />
@@ -110,7 +110,7 @@ const CategoryPage = () => {
                   color="textSecondary"
                   variant="body1"
                 >
-                  {startCase(subCategory.description)}
+                  {subCategory.description}
                 </Typography>
                 <Grid container alignItems="stretch" spacing={5}>
                   {renderPosts(subCategory.posts)}

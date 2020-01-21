@@ -3,7 +3,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import withData from "../shared/utils/apollo-setup";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "shared/styles/theme";
-import "shared/styles/index.scss";
+
 const App: any = ({ Component, pageProps, apollo }: any) => {
   return (
     <ThemeProvider theme={theme}>

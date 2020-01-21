@@ -83,7 +83,7 @@ const LatestPostCard = ({
             >
               {startCase(category)}
             </Typography>
-            <Typography color="textPrimary" variant="h4" className={classes.title}>
+            <Typography color="textPrimary" align="center" variant="h5" className={classes.title}>
               {title}
             </Typography>
             <Button

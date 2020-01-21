@@ -93,7 +93,8 @@ const FeaturePostHome = (props: Props) => {
               <Typography
                 className={classes.postTitle}
                 color="textPrimary"
-                variant="h4"
+                align="center"
+                variant="h5"
               >
                 {props.title}
               </Typography>
