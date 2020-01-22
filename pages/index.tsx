@@ -13,8 +13,6 @@ import {
 } from "shared/components/blog";
 import { ErrorBoundary } from "shared/components";
 
-import MuiAlert from "@material-ui/lab/Alert";
-import { Snackbar } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -55,31 +53,13 @@ const useStyles = makeStyles(theme => ({
 const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
   // @ts-ignore
   const classes = useStyles();
-  const [snackOpen, setSnackOpen] = React.useState(true);
   const avatarImage = require("shared/images/portrait-image.jpg");
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setSnackOpen(false);
-  };
   return (
     <ErrorBoundary>
       <Query query={FETCH_HOME_DATA}>
         {({ data }: any) => {
           return (
             <HomeLayout>
-              <Snackbar
-                open={snackOpen}
-                autoHideDuration={6000}
-                onClose={handleClose}
-              >
-                <Alert onClose={handleClose} severity="warning">
-                  Website UI still under construction! - Just want to start
-                  pushing content :>
-                </Alert>
-              </Snackbar>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={8} lg={8} xl={9}>
                   <section id="feature-post">
@@ -236,10 +216,6 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
     });
   }
 };
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 Home.getInitialProps = async ({ req }) => {
   const userAgent = req ? req.headers["user-agent"] || "" : navigator.userAgent;
