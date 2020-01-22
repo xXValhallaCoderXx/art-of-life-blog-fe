@@ -31,10 +31,10 @@ const useStyles = makeStyles(theme => ({
   },
   stickyPostTitle: {
     marginTop: "5vh",
-    marginBottom: 20,
+    marginBottom: 20
   },
   categoryWrapper: {
-    marginTop: "5vh",
+    marginTop: "5vh"
   },
   bioStyle: {
     marginTop: 15
@@ -126,11 +126,12 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                           color="textSecondary"
                           style={{ fontSize: 19 }}
                         >
-                          Hail! i'm Renate! <br/><br/>
-                          I'm a British / Portuguese human
-                          (born and raised on little Guernsey), with a huge love
-                          for friends, family, travel, fitness and just life in
-                          general, and always have a lot to say. <br />
+                          Hail! i'm Renate! <br />
+                          <br />
+                          I'm a British / Portuguese human (born and raised on
+                          little Guernsey), with a huge love for friends,
+                          family, travel, fitness and just life in general, and
+                          always have a lot to say. <br />
                           <br />
                           This will be my platform to share my thoughts and
                           adventures!
@@ -142,9 +143,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                         >
                           PINNED ARTICLES
                         </Typography>
-                        <div>
-                          {renderStarPosts(data.starPosts)}
-                        </div>
+                        <div>{renderStarPosts(data.starPosts)}</div>
                         <div className={classes.categoryWrapper}>
                           <CategoryList categories={data.categories} />
                         </div>
@@ -230,6 +229,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
             title={get(post, "title")}
             category={get(post, "category.title")}
             categoryID={get(post, "category.id")}
+            publishedAt={get(post, "published_at")}
           />
         </Grid>
       );

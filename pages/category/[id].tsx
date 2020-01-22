@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import Link from "next/link";
+import { parseISO, format } from "date-fns";
 import startCase from "lodash/startCase";
 import get from "lodash/get";
 import Query from "shared/components/query-component";
@@ -139,13 +139,14 @@ const CategoryPage = () => {
   function renderPosts(posts) {
     return posts.map((post, index) => {
       return (
-        <Grid item xl={4} lg={6} xs={12}>
+        <Grid item xl={4} lg={4} md={4} xs={12}>
           <LatestPostCard
             id={get(post, "id")}
             image={get(post, "image[0].url")}
             title={get(post, "title")}
             category={get(post, "category.title")}
             categoryID={get(post, "category.id")}
+            publishedAt={get(post, "published_at")}
             shadow={0}
           />
         </Grid>
