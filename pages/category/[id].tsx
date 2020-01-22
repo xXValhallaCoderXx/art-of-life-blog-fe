@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 
-import Link from "next/link";
 import startCase from "lodash/startCase";
 import get from "lodash/get";
 import Query from "shared/components/query-component";
@@ -18,10 +17,9 @@ const useStyles = makeStyles(theme => ({
   },
   subCategoryTitle: {
     color: theme.palette.primary.main,
-    textTransform: "uppercase",
-    marginBottom: 20,
     "&:hover": {
-      cursor: "pointer"
+      cursor: "pointer",
+      color: theme.palette.primary.dark,
     }
   },
   viewAllPosts: {
@@ -29,7 +27,8 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.primary.main,
     marginTop: 40,
     "&:hover": {
-      cursor: "pointer"
+      cursor: "pointer",
+      color: theme.palette.primary.dark,
     }
   },
   subCategoryDescription: {
@@ -37,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 20
   },
   categoryDescription: {
-    marginTop: 20
+    marginTop: 10
   },
   categoryTitle: {
     marginBottom: 20
@@ -62,16 +61,20 @@ const CategoryPage = () => {
           <HomeLayout>
             <Grid container spacing={5}>
               <Grid item xs={12} lg={9}>
-                <Typography variant="h3" color="primary">
-                  {startCase(data.category.title)}
-                </Typography>
-                <Typography
-                  className={classes.categoryDescription}
-                  color="textPrimary"
-                  variant="body1"
-                >
-                  {data.category.description}
-                </Typography>
+                <Card>
+                  <CardContent>
+                    <Typography variant="h3" color="primary">
+                      {startCase(data.category.title)}
+                    </Typography>
+                    <Typography
+                      className={classes.categoryDescription}
+                      color="textPrimary"
+                      variant="body1"
+                    >
+                      {data.category.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
                 {renderSubcategories(data.category.sub_categories)}
               </Grid>
 
@@ -92,7 +95,7 @@ const CategoryPage = () => {
   function renderSubcategories(subCategories) {
     return subCategories.map((subCategory, index) => {
       return (
-        <Box boxShadow={10}>
+        <Box boxShadow={0}>
           <Card className={classes.cardWrapper}>
             <CardContent>
               <Grid className={classes.subCategoryWrapper}>
@@ -107,7 +110,7 @@ const CategoryPage = () => {
                 </Typography>
                 <Typography
                   className={classes.subCategoryDescription}
-                  color="textSecondary"
+                  color="textPrimary"
                   variant="body1"
                 >
                   {subCategory.description}
@@ -117,7 +120,7 @@ const CategoryPage = () => {
                 </Grid>
                 <Typography
                   align="center"
-                  variant="h5"
+                  variant="h6"
                   className={classes.viewAllPosts}
                 >
                   <a
@@ -139,13 +142,14 @@ const CategoryPage = () => {
   function renderPosts(posts) {
     return posts.map((post, index) => {
       return (
-        <Grid item xl={4} lg={6} xs={12}>
+        <Grid item xl={4} lg={4} md={4} xs={12}>
           <LatestPostCard
             id={get(post, "id")}
             image={get(post, "image[0].url")}
             title={get(post, "title")}
             category={get(post, "category.title")}
             categoryID={get(post, "category.id")}
+            publishedAt={get(post, "published_at")}
             shadow={0}
           />
         </Grid>

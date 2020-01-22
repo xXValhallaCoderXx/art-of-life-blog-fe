@@ -30,5 +30,5 @@ let theme = createMuiTheme({
     }
   }
 });
-
+theme = responsiveFontSizes(theme);
 export default theme;
