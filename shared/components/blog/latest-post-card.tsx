@@ -78,6 +78,7 @@ const LatestPostCard = ({
             flexDirection="column"
             justifyContent="center"
             alignItems="center"
+            className={classes.contentWrapper}
           >
             <Typography
               onClick={() => router.push(`/category/${categoryID}`)}
@@ -90,7 +91,7 @@ const LatestPostCard = ({
             <Typography
               color="textPrimary"
               align="center"
-              variant="h5"
+              variant="h6"
               className={classes.title}
             >
               {title}
