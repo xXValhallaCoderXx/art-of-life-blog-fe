@@ -35,10 +35,7 @@ const useStyles = makeStyles(theme => ({
   },
   buttonWrapper: {
     fontWeight: 600,
-    fontSize: 18,
-    padding: 15,
-    paddingLeft: 40,
-    paddingRight: 40
+  
   },
   image: {
     objectFit: "cover",

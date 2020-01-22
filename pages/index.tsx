@@ -92,7 +92,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                         variant="h4"
                         color="primary"
                       >
-                        LATEST POSTS
+                        Latest Posts
                       </Typography>
                       <Grid
                         container
