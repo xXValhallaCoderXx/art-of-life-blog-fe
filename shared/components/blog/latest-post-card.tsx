@@ -34,8 +34,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   buttonWrapper: {
-    fontWeight: 600,
-  
+    fontWeight: 600
   },
   image: {
     objectFit: "cover",
@@ -71,14 +70,14 @@ const LatestPostCard = ({
   return (
     <Box boxShadow={shadow} className={classes.height}>
       <Card className={classes.height}>
-        <CardContent style={{ padding: 0 }}>
-          <img className={classes.image} src={image} />
-          <Grid
-            container
-            direction="column"
-            justify="center"
+        <img className={classes.image} src={image} />
+        <CardContent>
+          <Box
+            flexShrink={1}
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
             alignItems="center"
-            className={classes.contentWrapper}
           >
             <Typography
               onClick={() => router.push(`/category/${categoryID}`)}
@@ -96,9 +95,15 @@ const LatestPostCard = ({
             >
               {title}
             </Typography>
-            <Typography color="textSecondary" variant="body1" className={classes.publishedAt}>
+            <Typography
+              color="textSecondary"
+              variant="body1"
+              className={classes.publishedAt}
+            >
               {format(parsedDate, "MMM do yyyy")}
             </Typography>
+          </Box>
+          <Box display="flex" justifyContent="center">
             <Button
               className={classes.buttonWrapper}
               variant="contained"
@@ -108,7 +113,7 @@ const LatestPostCard = ({
             >
               READ MORE
             </Button>
-          </Grid>
+          </Box>
         </CardContent>
       </Card>
     </Box>
