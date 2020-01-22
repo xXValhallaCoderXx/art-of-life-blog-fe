@@ -41,12 +41,12 @@ export default ({ children, title, description, image }: Props) => {
         return (
           <div>
           <Head>
-            <title key="title">{MY_SEO.title}</title>
+            <title key="title">{title || MY_SEO.title}</title>
 
             <meta
               key="description"
               name="description"
-              content={MY_SEO.description}
+              content={description || MY_SEO.description}
             />
             <meta
               key="og:type"
@@ -56,18 +56,18 @@ export default ({ children, title, description, image }: Props) => {
             <meta
               key="og:title"
               name="og:title"
-              content={MY_SEO.openGraph.title}
+              content={title || MY_SEO.openGraph.title}
             />
             <meta
               key="og:description"
               name="og:description"
-              content={MY_SEO.openGraph.description}
+              content={description ||MY_SEO.openGraph.description}
             />
             <meta key="og:url" name="og:url" content={MY_SEO.openGraph.url} />
             <meta
               key="og:image"
               name="og:image"
-              content={MY_SEO.openGraph.image}
+              content={image || MY_SEO.openGraph.image}
             />
           </Head>
           <div className={classes.innerContainer}>
