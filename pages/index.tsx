@@ -81,7 +81,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                 </Alert>
               </Snackbar>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={9} lg={9}>
+                <Grid item xs={12} md={8} lg={8} xl={9}>
                   <section id="feature-post">
                     {renderFeaturePost(data.featurePost)}
                   </section>
@@ -105,7 +105,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                     </Grid>
                   </section>
                 </Grid>
-                <Grid item xs={12} md={9} lg={3}>
+                <Grid item xs={12} md={4} lg={4} xl={3}>
                   <Box boxShadow={5}>
                     <Card>
                       <CardContent style={{ padding: 40 }}>
