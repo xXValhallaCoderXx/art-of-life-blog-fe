@@ -57,7 +57,10 @@ const Post = () => {
     <Query query={FETCH_POST} variables={{ id: parseInt(id) }}>
       {({ data }: any) => {
         return (
-          <HomeLayout>
+          <HomeLayout
+            title={`Art Of Life - ${data.post.title}`}
+            image={data.post.image[0].url}
+          >
             <Grid container spacing={3}>
               <Grid item xs={12} sm={8} md={8} lg={9}>
                 <Card>
