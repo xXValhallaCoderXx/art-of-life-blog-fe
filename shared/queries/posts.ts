@@ -26,6 +26,7 @@ export const FETCH_SUBCATEGORY_POSTS = gql`
       posts {
         id
         title
+        published_at
         category {
           id
           title
@@ -55,6 +56,7 @@ export const FETCH_CATEGORY_SUBCATEGORY_POSTS = gql`
         posts(limit: 3, sort: "created_at:DESC") {
           id
           title
+          published_at
           image {
             url
           }

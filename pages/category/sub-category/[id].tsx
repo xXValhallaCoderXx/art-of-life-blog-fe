@@ -93,6 +93,7 @@ const CategoryPage = () => {
             categoryID={post.category.id}
             category={post.category.title}
             image={post.image[0].url}
+            publishedAt={post.published_at}
           />
         </Grid>
       );

@@ -13,8 +13,6 @@ import {
 } from "shared/components/blog";
 import { ErrorBoundary } from "shared/components";
 
-import MuiAlert from "@material-ui/lab/Alert";
-import { Snackbar } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -31,10 +29,10 @@ const useStyles = makeStyles(theme => ({
   },
   stickyPostTitle: {
     marginTop: "5vh",
-    marginBottom: 20,
+    marginBottom: 20
   },
   categoryWrapper: {
-    marginTop: "5vh",
+    marginTop: "5vh"
   },
   bioStyle: {
     marginTop: 15
@@ -55,33 +53,15 @@ const useStyles = makeStyles(theme => ({
 const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
   // @ts-ignore
   const classes = useStyles();
-  const [snackOpen, setSnackOpen] = React.useState(true);
   const avatarImage = require("shared/images/portrait-image.jpg");
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setSnackOpen(false);
-  };
   return (
     <ErrorBoundary>
       <Query query={FETCH_HOME_DATA}>
         {({ data }: any) => {
           return (
             <HomeLayout>
-              <Snackbar
-                open={snackOpen}
-                autoHideDuration={6000}
-                onClose={handleClose}
-              >
-                <Alert onClose={handleClose} severity="warning">
-                  Website UI still under construction! - Just want to start
-                  pushing content :>
-                </Alert>
-              </Snackbar>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={9} lg={9}>
+                <Grid item xs={12} md={8} lg={8} xl={9}>
                   <section id="feature-post">
                     {renderFeaturePost(data.featurePost)}
                   </section>
@@ -92,7 +72,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                         variant="h4"
                         color="primary"
                       >
-                        LATEST POSTS
+                        Latest Posts
                       </Typography>
                       <Grid
                         container
@@ -105,7 +85,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                     </Grid>
                   </section>
                 </Grid>
-                <Grid item xs={12} md={9} lg={3}>
+                <Grid item xs={12} md={4} lg={4} xl={3}>
                   <Box boxShadow={5}>
                     <Card>
                       <CardContent style={{ padding: 40 }}>
@@ -126,11 +106,12 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                           color="textSecondary"
                           style={{ fontSize: 19 }}
                         >
-                          Hail! i'm Renate! <br/><br/>
-                          I'm a British / Portuguese human
-                          (born and raised on little Guernsey), with a huge love
-                          for friends, family, travel, fitness and just life in
-                          general, and always have a lot to say. <br />
+                          Hail! i'm Renate! <br />
+                          <br />
+                          I'm a British / Portuguese human (born and raised on
+                          little Guernsey), with a huge love for friends,
+                          family, travel, fitness and just life in general, and
+                          always have a lot to say. <br />
                           <br />
                           This will be my platform to share my thoughts and
                           adventures!
@@ -142,9 +123,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
                         >
                           PINNED ARTICLES
                         </Typography>
-                        <div>
-                          {renderStarPosts(data.starPosts)}
-                        </div>
+                        <div>{renderStarPosts(data.starPosts)}</div>
                         <div className={classes.categoryWrapper}>
                           <CategoryList categories={data.categories} />
                         </div>
@@ -230,16 +209,13 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
             title={get(post, "title")}
             category={get(post, "category.title")}
             categoryID={get(post, "category.id")}
+            publishedAt={get(post, "published_at")}
           />
         </Grid>
       );
     });
   }
 };
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 Home.getInitialProps = async ({ req }) => {
   const userAgent = req ? req.headers["user-agent"] || "" : navigator.userAgent;
