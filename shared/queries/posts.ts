@@ -26,6 +26,7 @@ export const FETCH_SUBCATEGORY_POSTS = gql`
       posts {
         id
         title
+        published_at
         category {
           id
           title
