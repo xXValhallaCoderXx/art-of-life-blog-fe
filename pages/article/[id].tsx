@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import dynamic from 'next/dynamic'
 import Link from "next/link";
 import get from "lodash/get";
 import { HomeLayout } from "shared/components/layouts";
@@ -210,4 +211,7 @@ const Post = () => {
   }
 };
 
-export default Post;
+// export default Post;
+export default dynamic(() => Promise.resolve(Post), {
+  ssr: false
+})
