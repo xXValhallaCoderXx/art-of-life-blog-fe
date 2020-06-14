@@ -13,33 +13,32 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import "shared/styles/index.scss";
 
-
-const navStyles = makeStyles(theme => ({
+const navStyles = makeStyles((theme) => ({
   topNav: {
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.main,
   },
   socialIcon: {
     "&:hover": {
       color: "grey",
-      cursor: "pointer"
-    }
+      cursor: "pointer",
+    },
   },
   linkContainer: {
     display: "flex",
     flex: 1,
-    justifyContent: "center"
+    justifyContent: "center",
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
     textTransform: "uppercase",
     "&:hover": {
-      cursor: "pointer"
-    }
-  }
+      cursor: "pointer",
+      fontWeight: 800,
+    },
+  },
 }));
 
 const TopNav = () => {
@@ -81,7 +80,7 @@ const TopNav = () => {
   return (
     <AppBar className={classes.topNav}>
       <Toolbar>
-        {/* <Box>
+        <Box>
           <IconButton
             onClick={toggleSidedrawer}
             edge="start"
@@ -91,7 +90,7 @@ const TopNav = () => {
           >
             <MenuIcon />
           </IconButton>
-        </Box> */}
+        </Box>
 
         <Box flexGrow={1}>
           <Typography

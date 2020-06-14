@@ -8,16 +8,15 @@ import Button from "@material-ui/core/Button";
 
 const sideDrawer = makeStyles({
   list: {
-    width: 250
-  }
+    width: 250,
+  },
 });
 
 const Links = [
   { text: "Home", path: "/" },
-  { text: "Travel", path: "/article/category/travel" },
-  { text: "Lifestyle", path: "/article/category/lifestyle" },
-  { text: "Food", path: "/article/category/food" },
-  { text: "Tech", path: "/article/category/technology" }
+  { text: "Travel", path: "/article/category/1" },
+  { text: "Fitness", path: "/article/category/2" },
+  { text: "Lifestyle", path: "/article/category/3" },
 ];
 
 interface Props {

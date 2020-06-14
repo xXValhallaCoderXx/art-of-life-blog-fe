@@ -1,22 +1,11 @@
 const path = require("path");
 const compose = require("next-compose");
-const withCSS = require("@zeit/next-css");
-const withSass = require("@zeit/next-sass");
 const withImages = require("next-images");
-
-require("dotenv").config({ path: path.resolve(__dirname, ".env.dev") });
 
 module.exports = compose([
   [withImages, { inlineImageLimit: 100 }],
-  [withCSS],
-  [withSass, { cssModules: true }],
   {
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-      const env = Object.keys(process.env).reduce((acc, curr) => {
-        acc[`process.env.${curr}`] = JSON.stringify(process.env[curr]);
-        return acc;
-      }, {});
-      config.plugins.push(new webpack.DefinePlugin(env));
       // Note: we provide webpack above so you should not `require` it
       // Perform customizations to webpack config
       // Important: return the modified config
@@ -37,10 +26,4 @@ module.exports = compose([
       return config;
     }
   },
-  {
-    env: {
-      API_URL: process.env.API_URL,
-      MIXPANEL_ID: process.env.MIXPANEL_ID
-    }
-  }
 ]);
