@@ -2,8 +2,6 @@ const path = require("path");
 const compose = require("next-compose");
 const withImages = require("next-images");
 
-require("dotenv").config({ path: path.resolve(__dirname, ".env.dev") });
-
 module.exports = compose([
   [withImages, { inlineImageLimit: 100 }],
   {
