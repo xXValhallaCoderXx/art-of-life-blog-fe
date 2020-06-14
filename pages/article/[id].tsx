@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import get from "lodash/get";
 import { HomeLayout } from "shared/components/layouts";
 import Query from "shared/components/query-component";
 import { FETCH_POST } from "shared/queries/posts";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown from "react-markdown/with-html";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
@@ -17,17 +17,17 @@ import { CategoryList } from "shared/components/blog";
 import { parseISO, format } from "date-fns";
 import startCase from "lodash/startCase";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   cardWrapper: {
     marginTop: -30,
-    padding: 40
+    padding: 40,
   },
   imageWrapper: {
     marginBottom: 30,
     objectFit: "cover",
     objectPosition: "50% 0%",
     width: "100%",
-    height: 600
+    height: 600,
   },
   title: {
     fontWeight: 500,
@@ -35,17 +35,17 @@ const useStyles = makeStyles(theme => ({
     textTransform: "uppercase",
     [theme.breakpoints.down("md")]: {
       marginTop: 30,
-      fontSize: "2rem"
-    }
+      fontSize: "2rem",
+    },
   },
   relatedArticlesTitle: {
     [theme.breakpoints.down("md")]: {
-      fontSize: "1.5rem"
-    }
+      fontSize: "1.5rem",
+    },
   },
   categoriesCard: {
-    marginTop: 50
-  }
+    marginTop: 50,
+  },
 }));
 
 const Post = () => {
@@ -102,8 +102,11 @@ const Post = () => {
                       {data.post.title}
                     </Typography>
 
-                    <div className={"markdown-wrapper markdown-body"}>
-                      <ReactMarkdown source={data.post.content} />
+                    <div className={"markdown-wrapper markdown-body react-markdown-img-center"}>
+                      <ReactMarkdown
+                        escapeHtml={false}
+                        source={data.post.content}
+                      />
                     </div>
                   </div>
                 </Card>
@@ -154,7 +157,7 @@ const Post = () => {
 
   function handleSubCategories(countries, current) {
     const filteredCountries = countries.filter(
-      country => country.title !== current
+      (country) => country.title !== current
     );
     if (filteredCountries.length === 0) {
       return (
@@ -180,7 +183,7 @@ const Post = () => {
   }
 
   function handleRelatedArticles(posts) {
-    const filteredArtciles = posts.filter(post => post.id !== id);
+    const filteredArtciles = posts.filter((post) => post.id !== id);
     if (filteredArtciles.length === 0) {
       return (
         <Typography color="textPrimary" align="left" variant="h6">
@@ -212,5 +215,5 @@ const Post = () => {
 
 // export default Post;
 export default dynamic(() => Promise.resolve(Post), {
-  ssr: false
-})
+  ssr: false,
+});
