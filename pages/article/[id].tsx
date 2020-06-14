@@ -16,7 +16,6 @@ import { Box } from "@material-ui/core";
 import { CategoryList } from "shared/components/blog";
 import { parseISO, format } from "date-fns";
 import startCase from "lodash/startCase";
-import "github-markdown-css";
 
 const useStyles = makeStyles(theme => ({
   cardWrapper: {

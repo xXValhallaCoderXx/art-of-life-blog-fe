@@ -80,3 +80,5 @@ export default ({ children, title, description, image }: Props) => {
     </MixpanelConsumer>
   );
 };
+
+
