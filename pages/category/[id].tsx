@@ -95,7 +95,7 @@ const CategoryPage = () => {
   function renderSubcategories(subCategories) {
     return subCategories.map((subCategory, index) => {
       return (
-        <Box boxShadow={0}>
+        <Box boxShadow={0} key={index}>
           <Card className={classes.cardWrapper}>
             <CardContent>
               <Grid className={classes.subCategoryWrapper}>
@@ -142,7 +142,7 @@ const CategoryPage = () => {
   function renderPosts(posts) {
     return posts.map((post, index) => {
       return (
-        <Grid item xl={4} lg={4} md={4} xs={12}>
+        <Grid item xl={4} lg={4} md={4} xs={12} key={index}>
           <LatestPostCard
             id={get(post, "id")}
             image={get(post, "image[0].url")}

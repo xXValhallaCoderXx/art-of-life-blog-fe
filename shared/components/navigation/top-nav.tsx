@@ -80,7 +80,7 @@ const TopNav = () => {
   return (
     <AppBar className={classes.topNav}>
       <Toolbar>
-        {/* <Box>
+        <Box>
           <IconButton
             onClick={toggleSidedrawer}
             edge="start"
@@ -90,7 +90,7 @@ const TopNav = () => {
           >
             <MenuIcon />
           </IconButton>
-        </Box> */}
+        </Box>
 
         <Box flexGrow={1}>
           <Typography
