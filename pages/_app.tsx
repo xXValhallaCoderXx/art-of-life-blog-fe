@@ -1,3 +1,5 @@
+import "shared/styles/index.scss";
+import "github-markdown-css";
 import React from "react";
 import { ApolloProvider } from "@apollo/react-hooks";
 import withData from "../shared/utils/apollo-setup";
