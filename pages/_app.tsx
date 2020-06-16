@@ -8,11 +8,14 @@ import mixpanel from "mixpanel-browser";
 import { MixpanelProvider } from "react-mixpanel";
 import theme from "shared/styles/theme";
 
-mixpanel.init(process.env.MIXPANEL_ID);
-mixpanel.identify();
-
 const App: any = ({ Component, pageProps, apollo }: any) => {
-  return (
+  const [mixpanelInit, setMixpanelInit] = React.useState(false);
+  React.useEffect(() => {
+    mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_ID);
+    mixpanel.identify();
+    setMixpanelInit(true);
+  }, []);
+  return mixpanelInit ? (
     <MixpanelProvider mixpanel={mixpanel}>
       <ThemeProvider theme={theme}>
         <ApolloProvider client={apollo}>
@@ -20,7 +23,7 @@ const App: any = ({ Component, pageProps, apollo }: any) => {
         </ApolloProvider>
       </ThemeProvider>
     </MixpanelProvider>
-  );
+  ) : null;
 };
 
 // Wraps all components in the tree with the data provider
