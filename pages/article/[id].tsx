@@ -102,7 +102,11 @@ const Post = () => {
                       {data.post.title}
                     </Typography>
 
-                    <div className={"markdown-wrapper markdown-body react-markdown-img-center"}>
+                    <div
+                      className={
+                        "markdown-wrapper markdown-body react-markdown-img-center"
+                      }
+                    >
                       <ReactMarkdown
                         escapeHtml={false}
                         source={data.post.content}
@@ -192,7 +196,7 @@ const Post = () => {
       );
     } else {
       return filteredArtciles.map((article, index) => {
-        const result = parseISO(article.published_at);
+        const result = parseISO(article.updated_at);
         return (
           <Typography
             key={index}
