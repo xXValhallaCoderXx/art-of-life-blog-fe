@@ -11,16 +11,16 @@ import { LatestPostCard, CategoryList } from "shared/components/blog";
 
 import { Grid, Typography, Card, CardContent, Box } from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   subCategoryWrapper: {
-    marginTop: "2vh"
+    marginTop: "2vh",
   },
   subCategoryTitle: {
     color: theme.palette.primary.main,
     "&:hover": {
       cursor: "pointer",
       color: theme.palette.primary.dark,
-    }
+    },
   },
   viewAllPosts: {
     textTransform: "uppercase",
@@ -29,24 +29,24 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       cursor: "pointer",
       color: theme.palette.primary.dark,
-    }
+    },
   },
   subCategoryDescription: {
     marginTop: 20,
-    marginBottom: 20
+    marginBottom: 20,
   },
   categoryDescription: {
-    marginTop: 10
+    marginTop: 10,
   },
   categoryTitle: {
-    marginBottom: 20
+    marginBottom: 20,
   },
   categoryLink: {
-    marginBottom: 10
+    marginBottom: 10,
   },
   cardWrapper: {
-    marginTop: 30
-  }
+    marginTop: 30,
+  },
 }));
 
 const CategoryPage = () => {
@@ -149,7 +149,7 @@ const CategoryPage = () => {
             title={get(post, "title")}
             category={get(post, "category.title")}
             categoryID={get(post, "category.id")}
-            publishedAt={get(post, "published_at")}
+            publishedAt={get(post, "updated_at")}
             shadow={0}
           />
         </Grid>
@@ -157,6 +157,5 @@ const CategoryPage = () => {
     });
   }
 };
-
 
 export default CategoryPage;
