@@ -9,19 +9,19 @@ import { HomeLayout } from "shared/components/layouts";
 import { LatestPostCard, CategoryList } from "shared/components/blog";
 import { Grid, Card, CardContent } from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   postWrapper: {
     padding: 10,
     [theme.breakpoints.down("md")]: {
       padding: 0,
-      marginTop: 25
-    }
+      marginTop: 25,
+    },
   },
   text: {
     marginBottom: 20,
     "&:hover": {
-      cursor: "pointer"
-    }
+      cursor: "pointer",
+    },
   },
 }));
 
@@ -39,7 +39,12 @@ const CategoryPage = () => {
               <Grid item xs={12} sm={8} md={8} lg={9}>
                 <Card>
                   <CardContent>
-                    <Typography color="primary" align="left" variant="h5" className={classes.text}>
+                    <Typography
+                      color="primary"
+                      align="left"
+                      variant="h5"
+                      className={classes.text}
+                    >
                       <a
                         onClick={() =>
                           router.push(
@@ -93,7 +98,7 @@ const CategoryPage = () => {
             categoryID={post.category.id}
             category={post.category.title}
             image={post.image[0].url}
-            publishedAt={post.published_at}
+            publishedAt={post.updated_at}
           />
         </Grid>
       );

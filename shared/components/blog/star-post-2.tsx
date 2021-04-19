@@ -11,8 +11,8 @@ const useStyles = makeStyles(() => ({
     marginTop: 5,
     marginLeft: -5,
     "&:hover": {
-      cursor: "pointer"
-    }
+      cursor: "pointer",
+    },
   },
   titleText: {
     color: theme.palette.secondary.dark,
@@ -20,8 +20,8 @@ const useStyles = makeStyles(() => ({
     marginBottom: "1vh",
     "&:hover": {
       color: theme.palette.primary.main,
-      cursor: "pointer"
-    }
+      cursor: "pointer",
+    },
   },
   image: {
     objectFit: "cover",
@@ -29,13 +29,12 @@ const useStyles = makeStyles(() => ({
     height: 200,
     objectPosition: "50% 0%",
     "&:hover": {
-      cursor: "pointer"
-    }
+      cursor: "pointer",
+    },
   },
   postWrapper: {
-
     borderTop: `2px solid ${theme.palette.secondary.light}`,
-  }
+  },
 }));
 
 interface Props {
@@ -75,7 +74,11 @@ const StarPosts = (props: Props) => {
       >
         {title}
       </Typography>
-      <Typography variant="subtitle1" color="textSecondary" style={{marginTop: -5, marginBottom: 10}}>
+      <Typography
+        variant="subtitle1"
+        color="textSecondary"
+        style={{ marginTop: -5, marginBottom: 10 }}
+      >
         {format(parseDate, "MMM do yyyy")}
       </Typography>
       <img

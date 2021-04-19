@@ -9,7 +9,7 @@ import {
   FeaturePostHome,
   LatestPostCard,
   StarPost,
-  CategoryList
+  CategoryList,
 } from "shared/components/blog";
 import { ErrorBoundary } from "shared/components";
 
@@ -21,33 +21,33 @@ import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
 import Query from "shared/components/query-component";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   avatarImage: {
     maxHeight: 300,
     width: "100%",
-    objectFit: "cover"
+    objectFit: "cover",
   },
   stickyPostTitle: {
     marginTop: "5vh",
-    marginBottom: 20
+    marginBottom: 20,
   },
   categoryWrapper: {
-    marginTop: "5vh"
+    marginTop: "5vh",
   },
   bioStyle: {
-    marginTop: 15
+    marginTop: 15,
   },
   blogsSection: {
     marginTop: 30,
-    marginLeft: "1vh"
+    marginLeft: "1vh",
   },
   latestPostTitle: {
     marginTop: 50,
-    marginBottom: 30
+    marginBottom: 30,
   },
   latestPostContainer: {
-    paddingRight: 10
-  }
+    paddingRight: 10,
+  },
 }));
 
 const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
@@ -140,10 +140,11 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
   );
 
   function renderFeaturePost(post) {
+    console.log("POST: ", post);
     if (post) {
       return (
         <FeaturePostHome
-          publishedAt={get(post, "post.published_at")}
+          publishedAt={get(post, "post.updated_at")}
           image={get(post, "post.image[0].url")}
           category={get(post, "post.category.title")}
           title={get(post, "post.title")}
@@ -177,7 +178,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
         <StarPost
           key={index}
           id={post.id}
-          publishedAt={post.published_at}
+          publishedAt={post.updated_at}
           categoryID={post.category.id}
           category={post.category.title}
           img={post.image[0].url}
@@ -209,7 +210,7 @@ const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
             title={get(post, "title")}
             category={get(post, "category.title")}
             categoryID={get(post, "category.id")}
-            publishedAt={get(post, "published_at")}
+            publishedAt={get(post, "updated_at")}
           />
         </Grid>
       );

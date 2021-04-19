@@ -9,14 +9,14 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import { parseISO, format } from "date-fns";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   cardBg: {
     height: 500,
     backgroundImage: (props: any) => `url(${props.image})`,
     backgroundSize: "cover",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   cardWrapper: {
     display: "flex",
@@ -25,15 +25,15 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     padding: 40,
     [theme.breakpoints.down("md")]: {
-      padding: 20
-    }
+      padding: 20,
+    },
   },
   categoryTitle: {
     fontWeight: 600,
     textTransform: "uppercase",
     "&:hover": {
-      cursor: "pointer"
-    }
+      cursor: "pointer",
+    },
   },
   postTitle: {
     textTransform: "uppercase",
@@ -41,8 +41,8 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 20,
     [theme.breakpoints.down("md")]: {
       fontSize: "1.2rem",
-      textAlign: "center"
-    }
+      textAlign: "center",
+    },
   },
   text: {
     paddingLeft: 40,
@@ -54,14 +54,14 @@ const useStyles = makeStyles(theme => ({
     fontSize: 19,
     fontWeight: 600,
     "&:hover": {
-      cursor: "pointer"
+      cursor: "pointer",
     },
     [theme.breakpoints.down("md")]: {
       fontSize: "0.8rem",
       paddingLeft: 20,
       paddingRight: 20,
-    }
-  }
+    },
+  },
 }));
 
 interface Props {

@@ -11,37 +11,37 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   height: {
-    height: "100%"
+    height: "100%",
   },
   publishedAt: {
-    marginBottom: 20
+    marginBottom: 20,
   },
   contentWrapper: {
-    padding: 20
+    padding: 20,
   },
   title: {
     marginTop: 20,
     marginBottom: 20,
-    textTransform: "uppercase"
+    textTransform: "uppercase",
   },
   categoryTitle: {
     textTransform: "uppercase",
     color: theme.palette.primary.main,
     "&:hover": {
-      cursor: "pointer"
-    }
+      cursor: "pointer",
+    },
   },
   buttonWrapper: {
-    fontWeight: 600
+    fontWeight: 600,
   },
   image: {
     objectFit: "cover",
     objectPosition: "50% 0%",
     width: "100%",
-    height: 250
-  }
+    height: 250,
+  },
 }));
 
 interface Props {
@@ -61,7 +61,7 @@ const LatestPostCard = ({
   id,
   shadow,
   categoryID,
-  publishedAt
+  publishedAt,
 }: Props) => {
   // @ts-ignore
   const classes = useStyles();

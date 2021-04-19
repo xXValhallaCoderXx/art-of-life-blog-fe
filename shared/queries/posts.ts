@@ -26,14 +26,14 @@ export const FETCH_SUBCATEGORY_POSTS = gql`
       posts {
         id
         title
-        published_at
+        updated_at
         category {
           id
           title
         }
         image {
-        url
-      }
+          url
+        }
       }
     }
     categories {
@@ -56,7 +56,7 @@ export const FETCH_CATEGORY_SUBCATEGORY_POSTS = gql`
         posts(limit: 3, sort: "created_at:DESC") {
           id
           title
-          published_at
+          updated_at
           image {
             url
           }
@@ -92,7 +92,7 @@ export const FETCH_POST = gql`
         posts {
           id
           title
-          published_at
+          updated_at
         }
       }
       category {
@@ -125,7 +125,7 @@ export const FETCH_HOME_DATA = gql`
     posts(limit: 3, sort: "created_at:DESC") {
       id
       title
-      published_at
+      updated_at
       image {
         url
       }
@@ -138,7 +138,7 @@ export const FETCH_HOME_DATA = gql`
       post {
         id
         title
-        published_at
+        updated_at
         category {
           id
           title
@@ -152,7 +152,7 @@ export const FETCH_HOME_DATA = gql`
       posts {
         id
         title
-        published_at
+        updated_at
         category {
           id
           title
