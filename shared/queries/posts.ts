@@ -111,6 +111,14 @@ export const FETCH_POST = gql`
   }
 `;
 
+export const FETCH_POSTS_ID = gql`
+  query {
+    posts {
+      id
+    }
+  }
+`;
+
 export const FETCH_POSTS_BY_CATEGORY = gql`
   query ArticleCategories($category: String!) {
     posts(where: { category: { name: $category } }) {

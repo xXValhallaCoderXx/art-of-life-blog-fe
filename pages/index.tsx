@@ -2,7 +2,7 @@ import React from "react";
 import { NextPage } from "next";
 
 import get from "lodash/get";
-import { FETCH_HOME_DATA } from "shared/queries/posts";
+import { FETCH_HOME_DATA, FETCH_POSTS_ID } from "shared/queries/posts";
 
 import { HomeLayout } from "shared/components/layouts";
 import {
