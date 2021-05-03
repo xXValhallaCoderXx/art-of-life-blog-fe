@@ -19,6 +19,7 @@ const navStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
   },
   socialIcon: {
+    marginLeft: 10,
     "&:hover": {
       color: "grey",
       cursor: "pointer",
@@ -103,15 +104,7 @@ const TopNav = () => {
           </Typography>
         </Box>
 
-        <Grid
-          item
-          component="div"
-          spacing={1}
-          container
-          alignItems="flex-start"
-          justify="flex-end"
-          xs={6}
-        >
+        <Grid spacing={1} display="flex" flexDirection="row">
           <Grid item>
             <GitHubIcon
               onClick={onIconClick("github")}

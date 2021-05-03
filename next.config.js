@@ -1,29 +1,29 @@
 const path = require("path");
-const compose = require("next-compose");
-const withImages = require("next-images");
 
-module.exports = compose([
-  [withImages, { inlineImageLimit: 100 }],
-  {
-    webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-      // Note: we provide webpack above so you should not `require` it
-      // Perform customizations to webpack config
-      // Important: return the modified config
-      config.resolve.modules.push(
-        path.resolve(__dirname, "./"),
-        "node_modules"
-      );
-      config.module.rules.push({
-        test: /\.(eot|woff|woff2|ttf)$/,
-        use: {
-          loader: "url-loader",
-          options: {
-            limit: 100000,
-            name: "[name].[ext]"
-          }
-        }
-      });
-      return config;
-    }
+module.exports = {
+  future: {
+    webpack5: true,
   },
-]);
+};
+
+// module.exports = compose([
+//   {
+//     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+//       config.resolve.modules.push(
+//         path.resolve(__dirname, "./"),
+//         "node_modules"
+//       );
+//       config.module.rules.push({
+//         test: /\.(eot|woff|woff2|ttf)$/,
+//         use: {
+//           loader: "url-loader",
+//           options: {
+//             limit: 100000,
+//             name: "[name].[ext]",
+//           },
+//         },
+//       });
+//       return config;
+//     },
+//   },
+// ]);
