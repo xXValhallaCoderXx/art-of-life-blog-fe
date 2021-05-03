@@ -1,14 +1,30 @@
 import gql from "graphql-tag";
 
+export const FETCH_CATEGORIES_ID = gql`
+  query {
+    categories {
+      id
+    }
+  }
+`;
+
 export const FETCH_CATEGORY_SUBCATEGORY = gql`
   query {
     categories {
-      name
       id
+      title
       sub_categories {
         title
         id
       }
+    }
+  }
+`;
+
+export const FETCH_SUBCATEGORY_ID = gql`
+  query {
+    subCategories {
+      id
     }
   }
 `;
@@ -107,6 +123,14 @@ export const FETCH_POST = gql`
     categories {
       id
       title
+    }
+  }
+`;
+
+export const FETCH_POSTS_ID = gql`
+  query {
+    posts {
+      id
     }
   }
 `;

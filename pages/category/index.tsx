@@ -1,24 +1,16 @@
 import Link from "next/link";
-import Query from "shared/components/query-component";
 import { FETCH_CATEGORY_SUBCATEGORY } from "shared/queries/posts";
-
+import { initializeApollo } from "shared/utils/apollo-client";
 import { HomeLayout } from "shared/components/layouts";
-
 import { Grid } from "@material-ui/core";
 
-const CategoryIndex = () => {
+const CategoryIndex = ({ data }) => {
   return (
-    <Query query={FETCH_CATEGORY_SUBCATEGORY}>
-      {({ data }: any) => {
-        return (
-          <HomeLayout>
-            <Grid container direction="row" spacing={10}>
-              {renderCategories(data.categories)}
-            </Grid>
-          </HomeLayout>
-        );
-      }}
-    </Query>
+    <HomeLayout>
+      <Grid container direction="row" spacing={10}>
+        {renderCategories(data.categories)}
+      </Grid>
+    </HomeLayout>
   );
 
   function renderCategories(categories) {
@@ -28,20 +20,18 @@ const CategoryIndex = () => {
         let subContent = category.sub_categories.map((subCategory, index) => {
           return (
             <li key={index}>
-            <Link href={`/category/sub-category/${subCategory.id}`}>
-              <a>{subCategory.title}</a>
-            </Link>
+              <Link href={`/category/sub-category/${subCategory.id}`}>
+                <a>{subCategory.title}</a>
+              </Link>
             </li>
-          )
-        })
+          );
+        });
         content = (
           <div>
             <Link href={`/category/${category.id}`}>
               <a>{category.name}</a>
             </Link>
-            <ul>
-              {subContent}
-            </ul>
+            <ul>{subContent}</ul>
           </div>
         );
       } else {
@@ -59,5 +49,20 @@ const CategoryIndex = () => {
     });
   }
 };
+
+export async function getStaticProps() {
+  const apolloClient = initializeApollo();
+
+  const res = await apolloClient.query({
+    query: FETCH_CATEGORY_SUBCATEGORY,
+  });
+
+  return {
+    props: {
+      data: res.data,
+    },
+    unstable_revalidate: 1,
+  };
+}
 
 export default CategoryIndex;

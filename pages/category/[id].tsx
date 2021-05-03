@@ -2,10 +2,12 @@ import { useRouter } from "next/router";
 
 import startCase from "lodash/startCase";
 import get from "lodash/get";
-import Query from "shared/components/query-component";
 import { makeStyles } from "@material-ui/core/styles";
-import { FETCH_CATEGORY_SUBCATEGORY_POSTS } from "shared/queries/posts";
-
+import {
+  FETCH_CATEGORY_SUBCATEGORY_POSTS,
+  FETCH_CATEGORIES_ID,
+} from "shared/queries/posts";
+import { initializeApollo } from "shared/utils/apollo-client";
 import { HomeLayout } from "shared/components/layouts";
 import { LatestPostCard, CategoryList } from "shared/components/blog";
 
@@ -49,47 +51,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CategoryPage = () => {
-  // @ts-ignore
+const SubCategoryPage = ({ data }) => {
   const classes = useStyles();
   const router = useRouter();
-  const { id }: any = router.query;
   return (
-    <Query query={FETCH_CATEGORY_SUBCATEGORY_POSTS} variables={{ id }}>
-      {({ data }: any) => {
-        return (
-          <HomeLayout>
-            <Grid container spacing={5}>
-              <Grid item xs={12} lg={9}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="h3" color="primary">
-                      {startCase(data.category.title)}
-                    </Typography>
-                    <Typography
-                      className={classes.categoryDescription}
-                      color="textPrimary"
-                      variant="body1"
-                    >
-                      {data.category.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-                {renderSubcategories(data.category.sub_categories)}
-              </Grid>
+    <HomeLayout>
+      <Grid container spacing={5}>
+        <Grid item xs={12} lg={9}>
+          <Card>
+            <CardContent>
+              <Typography variant="h3" color="primary">
+                {startCase(data.category.title)}
+              </Typography>
+              <Typography
+                className={classes.categoryDescription}
+                color="textPrimary"
+                variant="body1"
+              >
+                {data.category.description}
+              </Typography>
+            </CardContent>
+          </Card>
+          {renderSubcategories(data.category.sub_categories)}
+        </Grid>
 
-              <Grid item xs={12} lg={3}>
-                <Card>
-                  <CardContent>
-                    <CategoryList categories={data.categories} />
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-          </HomeLayout>
-        );
-      }}
-    </Query>
+        <Grid item xs={12} lg={3}>
+          <Card>
+            <CardContent>
+              <CategoryList categories={data.categories} />
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </HomeLayout>
   );
 
   function renderSubcategories(subCategories) {
@@ -158,4 +152,32 @@ const CategoryPage = () => {
   }
 };
 
-export default CategoryPage;
+export async function getStaticPaths() {
+  const apolloClient = initializeApollo();
+  const res = await apolloClient.query({
+    query: FETCH_CATEGORIES_ID,
+  });
+  if (res.data.categories && res.data.categories.length > 0) {
+    const paths = res.data.categories.map((item) => ({
+      params: { id: item.id },
+    }));
+    return { paths, fallback: false };
+  }
+
+  return { paths: [], fallback: false };
+}
+
+export async function getStaticProps({ params }) {
+  const apolloClient = initializeApollo();
+
+  const res = await apolloClient.query({
+    query: FETCH_CATEGORY_SUBCATEGORY_POSTS,
+    variables: { id: parseInt(params.id) },
+  });
+
+  return {
+    props: { data: res.data },
+  };
+}
+
+export default SubCategoryPage;

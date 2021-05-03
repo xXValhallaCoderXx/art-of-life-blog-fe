@@ -1,10 +1,7 @@
-import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import get from "lodash/get";
 import { HomeLayout } from "shared/components/layouts";
-import Query from "shared/components/query-component";
-import { FETCH_POST } from "shared/queries/posts";
+import { FETCH_POSTS_ID, FETCH_POST } from "shared/queries/posts";
 import ReactMarkdown from "react-markdown/with-html";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -16,6 +13,7 @@ import { Box } from "@material-ui/core";
 import { CategoryList } from "shared/components/blog";
 import { parseISO, format } from "date-fns";
 import startCase from "lodash/startCase";
+import { initializeApollo } from "shared/utils/apollo-client";
 
 const useStyles = makeStyles((theme) => ({
   cardWrapper: {
@@ -48,115 +46,99 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Post = () => {
-  const router = useRouter();
-  const { id }: any = router.query;
-  // @ts-ignore
+const Post = ({ data }) => {
   const classes = useStyles();
+
   return (
-    <Query query={FETCH_POST} variables={{ id: parseInt(id) }}>
-      {({ data }: any) => {
-        return (
-          <HomeLayout
-            title={`Art Of Life - ${data.post.title}`}
-            image={data.post.image[0].url}
-          >
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={8} md={8} lg={9}>
-                <Card>
-                  <img
-                    className={classes.imageWrapper}
-                    src={get(data, "post.image[0].url")}
-                  />
-                  <div className={classes.cardWrapper}>
-                    <Typography
-                      component="div"
-                      variant="subtitle1"
-                      color="primary"
-                    >
-                      <Box letterSpacing={3} m={1}>
-                        <a
-                          onClick={() => `/category/${data.post.category.id}`}
-                          style={{ textTransform: "uppercase" }}
-                        >
-                          {startCase(data.post.category.title)}
-                        </a>
-                        <span style={{ marginLeft: 5, marginRight: 5 }}>-</span>
-                        <a
-                          onClick={() =>
-                            `/category/sub-category/${data.post.sub_category.id}`
-                          }
-                          style={{ textTransform: "uppercase" }}
-                        >
-                          {startCase(data.post.sub_category.title)}
-                        </a>
-                      </Box>
-                    </Typography>
+    <HomeLayout
+      title={`Art Of Life - ${data.post.title}`}
+      image={data.post.image[0].url}
+    >
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={8} md={8} lg={9}>
+          <Card>
+            <img
+              className={classes.imageWrapper}
+              src={get(data, "post.image[0].url")}
+            />
+            <div className={classes.cardWrapper}>
+              <Typography component="div" variant="subtitle1" color="primary">
+                <Box letterSpacing={3} m={1}>
+                  <a
+                    onClick={() => `/category/${data.post.category.id}`}
+                    style={{ textTransform: "uppercase" }}
+                  >
+                    {startCase(data.post.category.title)}
+                  </a>
+                  <span style={{ marginLeft: 5, marginRight: 5 }}>-</span>
+                  <a
+                    onClick={() =>
+                      `/category/sub-category/${data.post.sub_category.id}`
+                    }
+                    style={{ textTransform: "uppercase" }}
+                  >
+                    {startCase(data.post.sub_category.title)}
+                  </a>
+                </Box>
+              </Typography>
 
-                    <Typography
-                      className={classes.title}
-                      color="textPrimary"
-                      align="left"
-                      variant="h4"
-                    >
-                      {data.post.title}
-                    </Typography>
+              <Typography
+                className={classes.title}
+                color="textPrimary"
+                align="left"
+                variant="h4"
+              >
+                {data.post.title}
+              </Typography>
 
-                    <div
-                      className={
-                        "markdown-wrapper markdown-body react-markdown-img-center"
-                      }
-                    >
-                      <ReactMarkdown
-                        escapeHtml={false}
-                        source={data.post.content}
-                      />
-                    </div>
-                  </div>
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={4} md={4} lg={3}>
-                <Card>
-                  <CardContent>
-                    <Typography
-                      className={classes.relatedArticlesTitle}
-                      color="primary"
-                      align="left"
-                      variant="h5"
-                    >
-                      Related Articles -{" "}
-                      {startCase(data.post.sub_category.title)}
-                    </Typography>
-                    <div style={{ marginTop: 10, marginBottom: 30 }}>
-                      {handleRelatedArticles(data.post.sub_category.posts)}
-                    </div>
-                    <Typography
-                      className={classes.relatedArticlesTitle}
-                      color="primary"
-                      align="left"
-                      variant="h5"
-                    >
-                      Related Categories
-                    </Typography>
-                    <div style={{ marginTop: 5 }}>
-                      {handleSubCategories(
-                        data.post.category.sub_categories,
-                        data.post.sub_category.title
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-                <Card className={classes.categoriesCard}>
-                  <CardContent>
-                    <CategoryList categories={data.categories} />
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-          </HomeLayout>
-        );
-      }}
-    </Query>
+              <div
+                className={
+                  "markdown-wrapper markdown-body react-markdown-img-center"
+                }
+              >
+                <ReactMarkdown escapeHtml={false} source={data.post.content} />
+              </div>
+            </div>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={4} md={4} lg={3}>
+          <Card>
+            <CardContent>
+              <Typography
+                className={classes.relatedArticlesTitle}
+                color="primary"
+                align="left"
+                variant="h5"
+              >
+                Related Articles - {startCase(data.post.sub_category.title)}
+              </Typography>
+              <div style={{ marginTop: 10, marginBottom: 30 }}>
+                {handleRelatedArticles(data.post.sub_category.posts)}
+              </div>
+              <Typography
+                className={classes.relatedArticlesTitle}
+                color="primary"
+                align="left"
+                variant="h5"
+              >
+                Related Categories
+              </Typography>
+              <div style={{ marginTop: 5 }}>
+                {handleSubCategories(
+                  data.post.category.sub_categories,
+                  data.post.sub_category.title
+                )}
+              </div>
+            </CardContent>
+          </Card>
+          <Card className={classes.categoriesCard}>
+            <CardContent>
+              <CategoryList categories={data.categories} />
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </HomeLayout>
   );
 
   function handleSubCategories(countries, current) {
@@ -187,7 +169,7 @@ const Post = () => {
   }
 
   function handleRelatedArticles(posts) {
-    const filteredArtciles = posts.filter((post) => post.id !== id);
+    const filteredArtciles = posts.filter((post) => post.id !== data.post.id);
     if (filteredArtciles.length === 0) {
       return (
         <Typography color="textPrimary" align="left" variant="h6">
@@ -217,7 +199,33 @@ const Post = () => {
   }
 };
 
+export async function getStaticPaths() {
+  const apolloClient = initializeApollo();
+  const res = await apolloClient.query({
+    query: FETCH_POSTS_ID,
+  });
+  if (res.data.posts && res.data.posts.length > 0) {
+    const paths = res.data.posts.map((post) => ({
+      params: { id: post.id },
+    }));
+    return { paths, fallback: false };
+  }
+
+  return { paths: [], fallback: false };
+}
+
+export async function getStaticProps({ params }) {
+  const apolloClient = initializeApollo();
+
+  const res = await apolloClient.query({
+    query: FETCH_POST,
+    variables: { id: parseInt(params.id) },
+  });
+
+  return {
+    props: { data: res.data },
+  };
+}
+
 // export default Post;
-export default dynamic(() => Promise.resolve(Post), {
-  ssr: false,
-});
+export default Post;
