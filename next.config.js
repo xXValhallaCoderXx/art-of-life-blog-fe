@@ -1,5 +1,4 @@
 const path = require("path");
-const compose = require("next-compose");
 
 module.exports = {
   future: {
