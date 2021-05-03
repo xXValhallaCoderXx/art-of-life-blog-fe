@@ -1,5 +1,13 @@
 import gql from "graphql-tag";
 
+export const FETCH_CATEGORIES_ID = gql`
+  query {
+    categories {
+      id
+    }
+  }
+`;
+
 export const FETCH_CATEGORY_SUBCATEGORY = gql`
   query {
     categories {
