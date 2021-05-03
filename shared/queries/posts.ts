@@ -13,6 +13,14 @@ export const FETCH_CATEGORY_SUBCATEGORY = gql`
   }
 `;
 
+export const FETCH_SUBCATEGORY_ID = gql`
+  query {
+    subCategories {
+      id
+    }
+  }
+`;
+
 export const FETCH_SUBCATEGORY_POSTS = gql`
   query FetchSubCategoryPosts($id: ID!) {
     subCategory(id: $id) {
