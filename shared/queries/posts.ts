@@ -3,8 +3,8 @@ import gql from "graphql-tag";
 export const FETCH_CATEGORY_SUBCATEGORY = gql`
   query {
     categories {
-      name
       id
+      title
       sub_categories {
         title
         id

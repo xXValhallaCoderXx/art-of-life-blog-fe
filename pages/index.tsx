@@ -20,7 +20,7 @@ import Box from "@material-ui/core/Box";
 import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { initializeApollo } from "../shared/utils/apollo-client";
+import { initializeApollo } from "shared/utils/apollo-client";
 
 const useStyles = makeStyles((theme) => ({
   avatarImage: {
