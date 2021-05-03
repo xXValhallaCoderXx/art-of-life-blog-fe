@@ -2,7 +2,7 @@ import Link from "next/link";
 import get from "lodash/get";
 import { HomeLayout } from "shared/components/layouts";
 import { FETCH_POSTS_ID, FETCH_POST } from "shared/queries/posts";
-import ReactMarkdown from "react-markdown/with-html";
+import ReactMarkdown from "react-markdown";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
@@ -96,7 +96,7 @@ const Post = ({ data }) => {
                   "markdown-wrapper markdown-body react-markdown-img-center"
                 }
               >
-                <ReactMarkdown escapeHtml={false} source={data.post.content} />
+                <ReactMarkdown children={data.post.content} />
               </div>
             </div>
           </Card>

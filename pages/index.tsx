@@ -1,6 +1,6 @@
 import React from "react";
 import { NextPage } from "next";
-
+import Image from "next/image";
 import get from "lodash/get";
 import { FETCH_HOME_DATA, FETCH_POSTS_ID } from "shared/queries/posts";
 
@@ -24,8 +24,6 @@ import { initializeApollo } from "shared/utils/apollo-client";
 
 const useStyles = makeStyles((theme) => ({
   avatarImage: {
-    maxHeight: 300,
-    width: "100%",
     objectFit: "cover",
   },
   stickyPostTitle: {
@@ -135,7 +133,6 @@ const renderLatestPosts = (posts: any) => {
 
 const Home: NextPage = (props: any) => {
   const classes = useStyles();
-  const avatarImage = require("shared/images/portrait-image.jpg");
 
   return (
     <ErrorBoundary>
@@ -176,8 +173,14 @@ const Home: NextPage = (props: any) => {
                   >
                     ABOUT ME
                   </Typography>
-                  <img src={avatarImage} className={classes.avatarImage} />
 
+                  <Image
+                    width="370"
+                    height="370"
+                    src={"/images/portrait-image.jpg"}
+                    alt="me"
+                    className={classes.avatarImage}
+                  />
                   <Typography
                     className={classes.bioStyle}
                     color="textSecondary"
@@ -231,7 +234,7 @@ export async function getStaticProps() {
     props: {
       data: res.data,
     },
-    unstable_revalidate: 1,
+    revalidate: 1,
   };
 }
 
