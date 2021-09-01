@@ -20,7 +20,7 @@
     "graphql": "^15.5.0",
     "isomorphic-unfetch": "^3.0.0",
     "mixpanel-browser": "^2.33.1",
-    "next": "^10.2.0",
+    "next": "^11.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-ga": "^3.3.0",
